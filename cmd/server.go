@@ -18,7 +18,7 @@ import (
 	"github.com/coophive/faucet.coophive.network/internal/server"
 )
 
-func getFromEnv(key string, defaultVal string) (val string) {
+func GetFromEnv(key string, defaultVal string) (val string) {
 	val = os.Getenv(key)
 
 	if val == "" {
@@ -28,7 +28,7 @@ func getFromEnv(key string, defaultVal string) (val string) {
 }
 
 var PORT = func() int {
-	p, err := strconv.Atoi(getFromEnv("PORT", "8080"))
+	p, err := strconv.Atoi(GetFromEnv("PORT", "8080"))
 	if err != nil {
 		return 8080
 	}
