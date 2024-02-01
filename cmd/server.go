@@ -17,9 +17,18 @@ import (
 	"github.com/coophive/faucet.coophive.network/internal/server"
 )
 
+func getFromEnv(key string, defaultVal string) (val string) {
+	val = os.Getenv(key)
+
+	if val == "" {
+		val = defaultVal
+	}
+	return
+}
+
 var (
-	appVersion = "v1.1.0"
-	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111}
+	appVersion = "v0.1.0"
+	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "calib": 314159, "fvm": 314}
 
 	httpPortFlag = flag.Int("httpport", 8080, "Listener port to serve HTTP connection")
 	proxyCntFlag = flag.Int("proxycount", 0, "Count of reverse proxies in front of the server")
