@@ -1,4 +1,4 @@
-module github.com/chainflag/eth-faucet
+module github.com/coophive/faucet.coophive.network
 
 go 1.17
 

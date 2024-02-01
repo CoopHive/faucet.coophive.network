@@ -10,8 +10,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/negroni"
 
-	"github.com/chainflag/eth-faucet/internal/chain"
-	"github.com/chainflag/eth-faucet/web"
+	"github.com/coophive/faucet.coophive.network/internal/chain"
+	"github.com/coophive/faucet.coophive.network/web"
 )
 
 type Server struct {

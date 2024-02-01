@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/chainflag/eth-faucet/cmd"
+	"github.com/coophive/faucet.coophive.network/cmd"
 )
 
 //go:generate pnpm install

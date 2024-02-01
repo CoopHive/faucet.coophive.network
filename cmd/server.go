@@ -13,8 +13,8 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/chainflag/eth-faucet/internal/chain"
-	"github.com/chainflag/eth-faucet/internal/server"
+	"github.com/coophive/faucet.coophive.network/internal/chain"
+	"github.com/coophive/faucet.coophive.network/internal/server"
 )
 
 var (
