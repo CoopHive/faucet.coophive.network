@@ -1,5 +1,7 @@
 {
   "scripts": {
-    "build": "npm install -g yarn && cd web && yarn install && yarn vite build"
+    "setup": "npm install -g pnpm",
+    "postinstall": "npm run build",
+    "build": "vite build"
   }
 }
