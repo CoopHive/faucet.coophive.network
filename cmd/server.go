@@ -8,6 +8,7 @@ import (
 	"math/big"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -26,11 +27,19 @@ func getFromEnv(key string, defaultVal string) (val string) {
 	return
 }
 
+var PORT = func() int {
+	p, err := strconv.Atoi(getFromEnv("PORT", "8080"))
+	if err != nil {
+		return 8080
+	}
+	return p
+}()
+
 var (
 	appVersion = "v0.1.0"
 	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "calib": 314159, "fvm": 314}
 
-	httpPortFlag = flag.Int("httpport", 8080, "Listener port to serve HTTP connection")
+	httpPortFlag = flag.Int("httpport", PORT, "Listener port to serve HTTP connection")
 	proxyCntFlag = flag.Int("proxycount", 0, "Count of reverse proxies in front of the server")
 	versionFlag  = flag.Bool("version", false, "Print version number")
 

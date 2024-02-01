@@ -18,3 +18,9 @@
 .DS_Store
 
 password.txt
+
+
+.run/
+.env.*
+.env*
+*.env
