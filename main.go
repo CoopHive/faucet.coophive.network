@@ -4,7 +4,7 @@ import (
 	"github.com/chainflag/eth-faucet/cmd"
 )
 
-//go:generate npm run build
+//go:generate pnpm install
 func main() {
 	cmd.Execute()
 }

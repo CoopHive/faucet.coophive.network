@@ -1,7 +1,6 @@
 {
   "scripts": {
     "setup": "npm install -g pnpm",
-    "postinstall": "npm run build",
-    "build": "vite build"
+    "postinstall": "cd web && npm install -g pnpm && pnpm install"
   }
 }
