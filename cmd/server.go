@@ -67,7 +67,7 @@ var FAUCET_INTERVAL = func() int {
 
 var (
 	appVersion = "v0.1.0"
-	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "calib": 314159, "fvm": 314}
+	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "CALIBRATION": 314159, "fvm": 314}
 
 	httpPortFlag = flag.Int("httpport", PORT, "Listener port to serve HTTP connection")
 	proxyCntFlag = flag.Int("proxycount", PROXY_COUNT, "Count of reverse proxies in front of the server")
@@ -76,7 +76,7 @@ var (
 	payoutFlag       = flag.Int("faucet.amount", FAUCET_ETHER_AMOUNT, "Number of Ethers to transfer per user request")
 	payoutTokensFlag = flag.Int("faucet.tokenamount", FAUCET_TOKEN_AMOUNT, "Number of Tokens to transfer per user request")
 	intervalFlag     = flag.Int("faucet.minutes", FAUCET_INTERVAL(), "Number of minutes to wait between funding rounds")
-	netnameFlag      = flag.String("faucet.name", GetFromEnv("FAUCET_NAME", "CoopHive v0 Testnet"), "Network name to display on the frontend")
+	netnameFlag      = flag.String("faucet.name", GetFromEnv("FAUCET_NAME", "CALIBRATION"), "Network name to display on the frontend")
 	symbolFlag       = flag.String("faucet.symbol", GetFromEnv("FAUCET_SYMBOL", "HIVE"), "Token symbol to display on the frontend")
 
 	keyJSONFlag  = flag.String("wallet.keyjson", GetFromEnv("KEYSTORE", ""), "Keystore file to fund user requests with")
