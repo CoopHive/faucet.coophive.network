@@ -13,6 +13,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/coophive/faucet.coophive.network/internal/chain"
 	"github.com/coophive/faucet.coophive.network/internal/server"
@@ -95,6 +96,14 @@ func init() {
 		fmt.Println(appVersion)
 		os.Exit(0)
 	}
+
+	configFile := GetFromEnv("CONFIG_FILE", ".env")
+
+	log.Infof("config File: %s", configFile)
+
+	// if err := godotenv.Load(configFile); err != nil {
+	// 	log.Errorf("failed to load configfile-%s %v", configFile, err)
+	// }
 }
 
 func Execute() {
