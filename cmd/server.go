@@ -71,7 +71,7 @@ var (
 
 	httpPortFlag = flag.Int("httpport", PORT, "Listener port to serve HTTP connection")
 	proxyCntFlag = flag.Int("proxycount", PROXY_COUNT, "Count of reverse proxies in front of the server")
-	versionFlag  = flag.Bool("version", true, "Print version number")
+	versionFlag  = flag.Bool("version", false, "Print version number")
 
 	payoutFlag       = flag.Int("faucet.amount", FAUCET_ETHER_AMOUNT, "Number of Ethers to transfer per user request")
 	payoutTokensFlag = flag.Int("faucet.tokenamount", FAUCET_TOKEN_AMOUNT, "Number of Tokens to transfer per user request")
