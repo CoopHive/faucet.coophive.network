@@ -15,6 +15,8 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	log "github.com/sirupsen/logrus"
 
+	"github.com/spf13/viper"
+
 	"github.com/coophive/faucet.coophive.network/internal/chain"
 	"github.com/coophive/faucet.coophive.network/internal/server"
 )
@@ -99,7 +101,10 @@ func init() {
 
 	configFile := GetFromEnv("CONFIG_FILE", ".env")
 
-	log.Infof("config File: %s", configFile)
+	viper.SetConfigFile(configFile)
+	vipe.ReadInConfig()
+
+	log.Infof("config File: %s", viper.Get(configFile))
 
 	// if err := godotenv.Load(configFile); err != nil {
 	// 	log.Errorf("failed to load configfile-%s %v", configFile, err)
