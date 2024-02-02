@@ -8,31 +8,82 @@ import (
 	"math/big"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/spf13/viper"
 
 	"github.com/coophive/faucet.coophive.network/internal/chain"
 	"github.com/coophive/faucet.coophive.network/internal/server"
 )
 
-var (
-	appVersion = "v1.1.0"
-	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111}
+func GetFromEnv(key string, defaultVal string) (val string) {
+	val = os.Getenv(key)
 
-	httpPortFlag = flag.Int("httpport", 8080, "Listener port to serve HTTP connection")
-	proxyCntFlag = flag.Int("proxycount", 0, "Count of reverse proxies in front of the server")
+	if val == "" {
+		val = defaultVal
+	}
+	return
+}
+
+var PORT = func() int {
+	p, err := strconv.Atoi(GetFromEnv("PORT", "8080"))
+	if err != nil {
+		return 8080
+	}
+	return p
+}()
+var PROXY_COUNT = func() int {
+	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "0"))
+	if err != nil {
+		return 0
+	}
+	return p
+}()
+
+var FAUCET_ETHER_AMOUNT = func() int {
+	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "1"))
+	if err != nil {
+		return 0
+	}
+	return p
+}()
+var FAUCET_TOKEN_AMOUNT = func() int {
+	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "1"))
+	if err != nil {
+		return 1
+	}
+	return p
+}()
+
+var FAUCET_INTERVAL = func() int {
+	p, err := strconv.Atoi(GetFromEnv("FAUCET_INTERVAL", "1440"))
+	if err != nil {
+		return 1440
+	}
+	return p
+}
+
+var (
+	appVersion = "v0.1.0"
+	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "CALIBRATION": 314159, "fvm": 314}
+
+	httpPortFlag = flag.Int("httpport", PORT, "Listener port to serve HTTP connection")
+	proxyCntFlag = flag.Int("proxycount", PROXY_COUNT, "Count of reverse proxies in front of the server")
 	versionFlag  = flag.Bool("version", false, "Print version number")
 
-	payoutFlag       = flag.Int("faucet.amount", 1, "Number of Ethers to transfer per user request")
-	payoutTokensFlag = flag.Int("faucet.tokenamount", 1, "Number of Tokens to transfer per user request")
-	intervalFlag     = flag.Int("faucet.minutes", 1440, "Number of minutes to wait between funding rounds")
-	netnameFlag      = flag.String("faucet.name", "testnet", "Network name to display on the frontend")
-	symbolFlag       = flag.String("faucet.symbol", "ETH", "Token symbol to display on the frontend")
+	payoutFlag       = flag.Int("faucet.amount", FAUCET_ETHER_AMOUNT, "Number of Ethers to transfer per user request")
+	payoutTokensFlag = flag.Int("faucet.tokenamount", FAUCET_TOKEN_AMOUNT, "Number of Tokens to transfer per user request")
+	intervalFlag     = flag.Int("faucet.minutes", FAUCET_INTERVAL(), "Number of minutes to wait between funding rounds")
+	netnameFlag      = flag.String("faucet.name", GetFromEnv("FAUCET_NAME", "CALIBRATION"), "Network name to display on the frontend")
+	symbolFlag       = flag.String("faucet.symbol", GetFromEnv("FAUCET_SYMBOL", "HIVE"), "Token symbol to display on the frontend")
 
-	keyJSONFlag  = flag.String("wallet.keyjson", os.Getenv("KEYSTORE"), "Keystore file to fund user requests with")
-	keyPassFlag  = flag.String("wallet.keypass", "password.txt", "Passphrase text file to decrypt keystore")
+	keyJSONFlag  = flag.String("wallet.keyjson", GetFromEnv("KEYSTORE", ""), "Keystore file to fund user requests with")
+	keyPassFlag  = flag.String("wallet.keypass", GetFromEnv("KEYSTORE_PASS", "password.txt"), "Passphrase text file to decrypt keystore")
 	privKeyFlag  = flag.String("wallet.privkey", os.Getenv("PRIVATE_KEY"), "Private key hex to fund user requests with")
 	providerFlag = flag.String("wallet.provider", os.Getenv("WEB3_PROVIDER"), "Endpoint for Ethereum JSON-RPC connection")
 	tokenAddress = flag.String("wallet.tokenaddress", os.Getenv("TOKEN_ADDRESS"), "Address of ERC-20 token contract")
@@ -47,6 +98,17 @@ func init() {
 		fmt.Println(appVersion)
 		os.Exit(0)
 	}
+
+	configFile := GetFromEnv("CONFIG_FILE", ".env")
+
+	viper.SetConfigFile(configFile)
+	vipe.ReadInConfig()
+
+	log.Infof("config File: %s", viper.Get(configFile))
+
+	// if err := godotenv.Load(configFile); err != nil {
+	// 	log.Errorf("failed to load configfile-%s %v", configFile, err)
+	// }
 }
 
 func Execute() {
