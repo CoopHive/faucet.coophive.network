@@ -5,7 +5,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/coophive/faucet.coophive.network/enums"
+	"github.com/CoopHive/faucet.coophive.network/enums"
 )
 
 var NETWORKS = []string{"coophive", "calibration"}

@@ -32,7 +32,21 @@ jobs:
           go-version-file: go.mod
 
       - name: Install dependencies
-        run: go get .
+        run: go mod download
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.6.6
+          
+      - uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+          cache-dependency-path: "./web/pnpm-lock.yaml"
+          node-version: "20.11.0"
+          check-latest: true
+
+      - name: Generate
+        run: go generate
 
       - name: Build
         run: go build -v .

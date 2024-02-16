@@ -17,10 +17,10 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/coophive/faucet.coophive.network/config"
-	"github.com/coophive/faucet.coophive.network/enums"
-	"github.com/coophive/faucet.coophive.network/internal/chain"
-	"github.com/coophive/faucet.coophive.network/internal/server"
+	"github.com/CoopHive/faucet.coophive.network/config"
+	"github.com/CoopHive/faucet.coophive.network/enums"
+	"github.com/CoopHive/faucet.coophive.network/internal/chain"
+	"github.com/CoopHive/faucet.coophive.network/internal/server"
 )
 
 func GetFromEnv(key string, defaultVal string) (val string) {

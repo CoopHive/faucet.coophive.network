@@ -27,3 +27,10 @@ password.txt
 
 faucet
 bin/
+
+./data/
+./pnpm-lock.yaml
+./package-lock.json
+/pnpm-lock.yaml
+
+/dist/*

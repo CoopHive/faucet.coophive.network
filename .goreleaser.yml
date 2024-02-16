@@ -1,44 +1,90 @@
+version: 1
+
 before:
   hooks:
-    - npm run build
-    - go mod tidy
+    - pnpm install
+#    - go mod tidy
+
+git:
+  tag_sort: -version:creatordate
+  prerelease_suffix: "-"
 
 builds:
-  - env:
+  - id: "cli"
+    binary: "bin/"
+    main: "main.go"
+
+    flags:
+      - -v
+
+    ldflags:
+      - -X "github.com/CoopHive/faucet.coophive.network/config.version={{.Version}}"
+      - -X "github.com/CoopHive/faucet.coophive.network/config.commitSha={{.ShortCommit}}"
+      - -s -w
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
       - windows
       - darwin
+    goarch:
+      - amd64
+      - arm
+      - arm64
     ignore:
-      - goos: darwin
-        goarch: 386
       - goos: windows
         goarch: arm64
-    ldflags:
-      - -s -w
+
+      - goos: windows
+        goarch: arm
+
+    dir: "." #go.mod
+
+universal_binaries:
+  - name_template: 'hive-darwin-universal' #binary name
+    id: hive
+    ids:
+      - cli
+      - hive
+      - hive-universal
+    replace: false
+
+    hooks:
+      pre: echo "pre"
+      post: echo {{ .Path }}
 
 archives:
-  - replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+  - format: binary
+    #  - format: tar.gz
+    #    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{ .ProjectName }}-
+      {{- title .Os }}-
+      {{- if eq .Arch "amd64" }}amd64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
     format_overrides:
       - goos: windows
         format: zip
 
-checksum:
-  name_template: "checksums.txt"
-
-release:
-  prerelease: auto
 
 changelog:
   sort: asc
   filters:
-    exclude:
-      - "^docs:"
-      - "^chore:"
-      - "^ci:"
+#    exclude:
+#      - "^docs:"
+#      - "^test:"
+
+release:
+  mode: append
+  draft: true
+  replace_existing_draft: true
+  #  make_latest: true
+  prerelease: auto #if rc1
+
+#https://goreleaser.com/customization/release/#github
+
+#https://goreleaser.com/customization/universalbinaries/
+
