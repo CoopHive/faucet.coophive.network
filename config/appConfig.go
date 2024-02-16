@@ -75,19 +75,19 @@ var appConfig = configMap[string]{
 	},
 	enums.WALLET_PROVIDER: {
 		desc:       "Endpoint for Ethereum JSON-RPC connection",
-		defaultVal: os.Getenv("WEB3_PROVIDER"),
+		defaultVal: "",
 	},
 	enums.WALLET_TOKENADDRESS: {
 		desc:       "Address of ERC-20 token contract",
-		defaultVal: os.Getenv("TOKEN_ADDRESS"),
+		defaultVal: "",
 	},
 	enums.HCAPTCHA_SITEKEY: {
 		desc:       "hCaptcha sitekey",
-		defaultVal: os.Getenv("HCAPTCHA_SITEKEY"),
+		defaultVal: "",
 	},
 	enums.HCAPTCHA_SECRET: {
 		desc:       "hCaptcha secret",
-		defaultVal: os.Getenv("HCAPTCHA_SECRET"),
+		defaultVal: "",
 	},
 }
 
