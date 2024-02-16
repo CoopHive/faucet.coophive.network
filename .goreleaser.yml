@@ -18,8 +18,8 @@ builds:
       - -v
 
     ldflags:
-      - -X "github.com/CoopHive/hive/config.version={{.Version}}"
-      - -X "github.com/CoopHive/hive/config.commitSha={{.ShortCommit}}"
+      - -X "github.com/CoopHive/faucet.coophive.network/config.version={{.Version}}"
+      - -X "github.com/CoopHive/faucet.coophive.network/config.commitSha={{.ShortCommit}}"
     env:
       - CGO_ENABLED=0
     goos:
