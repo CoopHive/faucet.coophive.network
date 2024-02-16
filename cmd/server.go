@@ -102,7 +102,6 @@ func init() {
 	configFile := GetFromEnv("CONFIG_FILE", ".env")
 
 	viper.SetConfigFile(configFile)
-	vipe.ReadInConfig()
 
 	log.Infof("config File: %s", viper.Get(configFile))
 
