@@ -143,7 +143,7 @@
       <div class="container has-text-centered">
         <div class="column is-6 is-offset-3">
           <div>
-            <img src="/logo.png" alt="logo" />
+            <img src="/logo.jpg" alt="logo" />
           </div>
           <h1 class="title">
             Receive 100 eth and <br />100 tokens
