@@ -2,39 +2,52 @@ name: Docker
 
 on:
   push:
-    branches: [main]
-    tags: [v*]
+    branches:
+      - main
+
+    tags:
+
   pull_request:
-    branches: [main]
+    branches:
+      - main
+  merge_group:
+    types: [ checks_requested ]
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  envfile: ${{secrets.ENV}}
+  MODE: test
+  NODE_ENV: testing
+  CONFIG: "./hardhat/.env"
 
 jobs:
-  docker:
+  build-docker:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v3
-        with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/eth-faucet
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+      - name: Build Docker
+        run: docker build .
 
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  test-docker:
+    runs-on: ubuntu-latest
 
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Write environment
+        run: |
+          echo $envfile > .env.tmp
+          sed 's/ /\n/g' .env.tmp > .env
+          source .env
+          cp .env .env.test
+
+      - name: Build Docker
+        run: docker build -t app .
+#TODO: docker create Dockerfile.test
