@@ -41,12 +41,12 @@ builds:
     dir: "." #go.mod
 
 universal_binaries:
-  - name_template: 'hive-darwin-universal' #binary name
-    id: hive
+  - name_template: 'faucet-darwin-universal' #binary name
+    id: faucet
     ids:
       - cli
-      - hive
-      - hive-universal
+      - faucet
+      - faucet-universal
     replace: false
 
     hooks:
