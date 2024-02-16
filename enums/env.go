@@ -46,7 +46,6 @@ const (
 	WALLET_KEYJSON      = "wallet_keyjson"
 	WALLET_KEYPASS      = "wallet_keypass"
 	WALLET_PRIVKEY      = "wallet_privkey"
-	WALLET_PROVIDER     = "wallet_provider"
 	WALLET_TOKENADDRESS = "wallet_tokenaddress"
 	HCAPTCHA_SITEKEY    = "hcaptcha_sitekey"
 	HCAPTCHA_SECRET     = "hcaptcha_secret"

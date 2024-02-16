@@ -58,7 +58,7 @@ func Execute() {
 
 	chainID := conf.GetInt64(enums.WEB3_CHAIN_ID)
 
-	provider := conf.GetString(enums.WALLET_PROVIDER)
+	provider := conf.GetString(enums.WEB3_RPC_URL)
 
 	txBuilder, err := chain.NewTxBuilder(provider, privateKey, big.NewInt(chainID), common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
 	if err != nil {

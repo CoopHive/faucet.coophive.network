@@ -73,10 +73,10 @@ var appConfig = configMap[string]{
 		desc:       "Private key hex to fund user requests with",
 		defaultVal: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // FIXME: use WEB3_PRIVATE_KEY
 	},
-	enums.WALLET_PROVIDER: {
-		desc:       "Endpoint for Ethereum JSON-RPC connection",
-		defaultVal: "",
-	},
+	// enums.WALLET_PROVIDER: {
+	// 	desc:       "Endpoint for Ethereum JSON-RPC connection",
+	// 	defaultVal: "",
+	// },
 	enums.WALLET_TOKENADDRESS: {
 		desc:       "Address of ERC-20 token contract",
 		defaultVal: "",
