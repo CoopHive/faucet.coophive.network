@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
+
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
@@ -11,6 +13,13 @@ import (
 )
 
 func init() {
+
+	// fmt.Printf("CoopHive: %s\n", hive.VERSION)
+
+	if err := godotenv.Load(os.Getenv("CONFIG_FILE"), ".env"); err != nil {
+		logrus.Debugf(".env not found")
+	}
+
 	pf := pflag.NewFlagSet("conf", pflag.ContinueOnError)
 
 	checkDup := func(key string, block string) {

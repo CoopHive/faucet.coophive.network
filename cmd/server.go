@@ -55,7 +55,12 @@ func Execute() {
 		panic(fmt.Errorf("failed to read private key: %w", err))
 	}
 
-	chainID := conf.Get(enums.WEB3_CHAIN_ID).(*big.Int)
+	var chainID *big.Int
+	var ok bool
+
+	if chainID, ok = conf.Get(enums.WEB3_CHAIN_ID).(*big.Int); !ok {
+		panic(fmt.Errorf("failed to read chain id"))
+	}
 
 	provider := conf.GetString(enums.WALLET_PROVIDER)
 
