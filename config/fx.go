@@ -29,12 +29,8 @@ func init() {
 	// }
 
 	cmdFlags := map[string]bool{
-		enums.APP_DIR:         true,
-		enums.NETWORK:         true,
-		enums.HIVE_CONTROLLER: true,
-		enums.DEALER:          true,
-		// enums.APP_DATA_DIR:   true,
-		// enums.APP_PLUGIN_DIR: true,
+		enums.APP_DIR: true,
+		enums.NETWORK: true,
 	}
 
 	for key, meta := range buildConfig {
