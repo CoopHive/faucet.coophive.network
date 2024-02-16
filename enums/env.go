@@ -51,3 +51,7 @@ const (
 	HCAPTCHA_SITEKEY    = "hcaptcha_sitekey"
 	HCAPTCHA_SECRET     = "hcaptcha_secret"
 )
+
+const (
+	PROXY_COUNT = "proxy_count"
+)
