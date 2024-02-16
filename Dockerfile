@@ -10,7 +10,7 @@ RUN pnpm install
 
 RUN npm run build
 
-FROM golang:1.21-alpine as backend
+FROM golang:1.21 as backend
 
 ENV GOPATH /go
 ENV GO111MODULE on
