@@ -42,14 +42,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: pnpm/action-setup@v3
         with:
-          node-version: 20
+          version: 8.6.6
+      - uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+          cache-dependency-path: "./web/pnpm-lock.yaml"
+          node-version: "20.11.0"
+          check-latest: true
 
-      - name: Get npm cache
-        id: npm-cache
-        run: echo "NPM_CACHE_DIR=$(pwd)/node_modules" >> "${GITHUB_OUTPUT}"
+      - run: pnpm install
+        working-directory: web
 
 
       - name: Get working directory
@@ -57,24 +61,8 @@ jobs:
         run: |
           echo "wkdir=$(pwd)" >> $GITHUB_OUTPUT
 
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.npm-cache.outputs.NPM_CACHE_DIR }}
-          key:
-            npm-${{github.workflow}}-${{ runner.os }}-${{ hashFiles('${{ steps.wkdir.outputs.wkdir }}/package.json') }}
-
-          restore-keys: |
-            npm-${{github.workflow}}-${{ runner.os }}-${{ hashFiles('${{ steps.wkdir.outputs.wkdir }}/package.json') }}
-
-      - name: Install dependencies
-        run: npm install --include=dev
-
-      - name: Build
-        run: npm run build
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ steps.wkdir.outputs.wkdir }}/build
+          publish_dir: ${{ steps.wkdir.outputs.wkdir }}/dist
