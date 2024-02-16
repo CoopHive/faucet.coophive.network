@@ -1,6 +1,8 @@
 {
   "scripts": {
     "setup": "npm install -g pnpm",
-    "postinstall": "cd web && npm install -g pnpm && pnpm install"
+    "install": "cd web && pnpm install",
+    "postinstall": "cd web && npm install -g pnpm && pnpm install",
+    "build": "cd web && npm run build"
   }
 }

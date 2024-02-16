@@ -1,4 +1,4 @@
-module github.com/coophive/faucet.coophive.network
+module github.com/CoopHive/faucet.coophive.network
 
 go 1.21
 

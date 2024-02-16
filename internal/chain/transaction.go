@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/coophive/faucet.coophive.network/internal/chain/token"
+	"github.com/CoopHive/faucet.coophive.network/internal/chain/token"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"

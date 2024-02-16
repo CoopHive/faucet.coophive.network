@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/coophive/faucet.coophive.network/cmd"
+	"github.com/CoopHive/faucet.coophive.network/cmd"
 )
 
 func main() {
