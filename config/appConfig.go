@@ -33,7 +33,7 @@ var appConfig = configMap[string]{
 		"1337",
 	},
 	enums.WEB3_PRIVATE_KEY: {
-		"private key",
+		"Private key hex to fund user requests with",
 		"0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
 	},
 
@@ -41,17 +41,17 @@ var appConfig = configMap[string]{
 		"port to run",
 		"8080",
 	},
-	enums.FAUCET_AMOUNT: {
+	enums.ETH_DRIP: {
 		desc:       "Number of Ethers to transfer per user request",
-		defaultVal: "1",
+		defaultVal: "0",
 	},
-	enums.FAUCET_TOKENAMOUNT: {
+	enums.HIVE_DRIP: {
 		desc:       "Number of Tokens to transfer per user request",
-		defaultVal: "1",
+		defaultVal: "10",
 	},
 	enums.FAUCET_MINUTES: {
 		desc:       "Number of minutes to wait between funding rounds",
-		defaultVal: "1440",
+		defaultVal: "60",
 	},
 	enums.FAUCET_NAME: {
 		desc:       "Network name to display on the frontend",
@@ -69,10 +69,10 @@ var appConfig = configMap[string]{
 		desc:       "Passphrase text file to decrypt keystore",
 		defaultVal: "password.txt",
 	},
-	enums.WALLET_PRIVKEY: {
-		desc:       "Private key hex to fund user requests with",
-		defaultVal: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // FIXME: use WEB3_PRIVATE_KEY
-	},
+	// enums.WALLET_PRIVKEY: {
+	// 	desc:       "Private key hex to fund user requests with",
+	// 	defaultVal: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // FIXME: use WEB3_PRIVATE_KEY
+	// },
 	// enums.WALLET_PROVIDER: {
 	// 	desc:       "Endpoint for Ethereum JSON-RPC connection",
 	// 	defaultVal: "",

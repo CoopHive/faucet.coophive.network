@@ -44,14 +44,15 @@ func Execute() {
 		conf.GetString(enums.FAUCET_SYMBOL),
 		conf.GetInt(enums.PORT),
 		conf.GetInt(enums.FAUCET_MINUTES),
-		conf.GetInt(enums.FAUCET_AMOUNT),
-		conf.GetInt(enums.FAUCET_TOKENAMOUNT),
+		conf.GetInt(enums.ETH_DRIP),
+		conf.GetInt(enums.HIVE_DRIP),
 		conf.GetInt(enums.PROXY_COUNT),
 		conf.GetString(enums.HCAPTCHA_SITEKEY),
 		conf.GetString(enums.HCAPTCHA_SECRET),
 	}
 
-	privateKey, err := createPrivateKey(conf.GetString(enums.WEB3_PRIVATE_KEY))
+	pKey := conf.GetString(enums.WEB3_PRIVATE_KEY)
+	privateKey, err := createPrivateKey(pKey)
 	if err != nil {
 		panic(fmt.Errorf("failed to read private key: %w", err))
 	}

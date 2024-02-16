@@ -38,8 +38,8 @@ const (
 	WEB3_CHAIN_ID    = "WEB3_CHAIN_ID"
 )
 const (
-	FAUCET_AMOUNT       = "faucet_amount"
-	FAUCET_TOKENAMOUNT  = "faucet_tokenamount"
+	ETH_DRIP            = "eth_drip"
+	HIVE_DRIP           = "hive_drip" // Custom ERC20 token
 	FAUCET_MINUTES      = "faucet_minutes"
 	FAUCET_NAME         = "faucet_name"
 	FAUCET_SYMBOL       = "faucet_symbol"
