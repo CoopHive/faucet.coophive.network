@@ -35,7 +35,7 @@ jobs:
           go-version-file: go.mod
 
       - name: Install dependencies
-        run: go get .
+        run: go mod download
 
       - uses: actions/setup-node@v3
         with:

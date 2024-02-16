@@ -21,6 +21,10 @@ jobs:
           cache: true
           go-version-file: go.mod
 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.6.6
+
       - uses: actions/setup-node@v3
         with:
           cache: "pnpm"
