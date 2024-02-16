@@ -13,9 +13,6 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	log "github.com/sirupsen/logrus"
-
-	"github.com/spf13/viper"
 
 	"github.com/CoopHive/faucet.coophive.network/config"
 	"github.com/CoopHive/faucet.coophive.network/enums"
@@ -99,12 +96,6 @@ func init() {
 		fmt.Println(config.Conf.GetString(enums.VERSION))
 		os.Exit(0)
 	}
-
-	configFile := GetFromEnv("CONFIG_FILE", ".env")
-
-	viper.SetConfigFile(configFile)
-
-	log.Infof("config File: %s", viper.Get(configFile))
 
 	// if err := godotenv.Load(configFile); err != nil {
 	// 	log.Errorf("failed to load configfile-%s %v", configFile, err)
