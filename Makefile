@@ -29,3 +29,6 @@ install-faucet:
 
 .PHONY: release install-unix install-win build release release-linux make-bin
 
+
+build-frontend:
+	cd web; npm run build;
