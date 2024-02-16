@@ -174,7 +174,7 @@
             </div>
           </div>
           <div>
-            <img src="/feature.png" alt="feature" style="border: 1px solid #fff;" />
+            <img src="/feature.jpg" alt="feature" style="border: 1px solid #fff;" />
           </div>
         </div>
       </div>
