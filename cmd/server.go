@@ -12,7 +12,6 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/sirupsen/logrus"
 
 	"github.com/CoopHive/faucet.coophive.network/config"
 	"github.com/CoopHive/faucet.coophive.network/enums"
@@ -56,17 +55,11 @@ func Execute() {
 		panic(fmt.Errorf("failed to read private key: %w", err))
 	}
 
-	var chainID *big.Int
-	var ok bool
-
-	if chainID, ok = conf.Get(enums.WEB3_CHAIN_ID).(*big.Int); !ok {
-		logrus.Info("chain id ", conf.GetInt(enums.WEB3_CHAIN_ID))
-		panic(fmt.Errorf("failed to read chain id"))
-	}
+	chainID := conf.GetInt64(enums.WEB3_CHAIN_ID)
 
 	provider := conf.GetString(enums.WALLET_PROVIDER)
 
-	txBuilder, err := chain.NewTxBuilder(provider, privateKey, chainID, common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
+	txBuilder, err := chain.NewTxBuilder(provider, privateKey, big.NewInt(chainID), common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
 	if err != nil {
 		panic(fmt.Errorf("cannot connect to web3 provider: %w", err))
 	}
