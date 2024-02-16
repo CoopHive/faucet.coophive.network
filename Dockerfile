@@ -38,7 +38,7 @@ FROM alpine:latest
 
 RUN apk add --no-cache ca-certificates
 
-COPY --from=backend /app/eth-faucet /app/eth-faucet
+COPY --from=backend /app/coophive-faucet /app/coophive-faucet
 
 EXPOSE 8080
 
