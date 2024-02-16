@@ -18,7 +18,7 @@ ENV GO111MODULE on
 WORKDIR /app
 RUN mkdir -p ./bin
 
-RUN apk add --no-cache gcc musl-dev linux-headers
+#RUN apk add --no-cache gcc musl-dev linux-headers
 
 RUN go install github.com/goreleaser/goreleaser@latest
 
