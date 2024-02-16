@@ -41,10 +41,15 @@ jobs:
           go-version-file: go.mod
           check-latest: true
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          cache: "pnpm"
+          cache-dependency-path: "./web/pnpm-lock.yaml"
+          node-version: "20.11.0"
+          check-latest: true
+
+      - run: pnpm install
+        working-directory: web
 
 
       - name: Git config
