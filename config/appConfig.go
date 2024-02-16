@@ -45,7 +45,7 @@ var appConfig = configMap[string]{
 		desc:       "Number of Ethers to transfer per user request",
 		defaultVal: "0.01",
 	},
-	enums.FAUCET_TOKENAMOUNT: {
+	enums.HIVE_DRIP: {
 		desc:       "Number of Tokens to transfer per user request",
 		defaultVal: "10",
 	},

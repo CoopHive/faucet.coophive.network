@@ -45,7 +45,7 @@ func Execute() {
 		conf.GetInt(enums.PORT),
 		conf.GetInt(enums.FAUCET_MINUTES),
 		conf.GetInt(enums.ETH_DRIP),
-		conf.GetInt(enums.FAUCET_TOKENAMOUNT),
+		conf.GetInt(enums.HIVE_DRIP),
 		conf.GetInt(enums.PROXY_COUNT),
 		conf.GetString(enums.HCAPTCHA_SITEKEY),
 		conf.GetString(enums.HCAPTCHA_SECRET),
