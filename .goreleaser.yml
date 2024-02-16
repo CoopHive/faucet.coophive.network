@@ -2,8 +2,8 @@ version: 1
 
 before:
   hooks:
-    - npm run build
-    - go mod tidy
+    - pnpm install
+#    - go mod tidy
 
 git:
   tag_sort: -version:creatordate
