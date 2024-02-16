@@ -34,4 +34,4 @@ var buildConfig = configMap[string]{
 	},
 }
 
-var Conf *viper.Viper
+var Conf = viper.New()

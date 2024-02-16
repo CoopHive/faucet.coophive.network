@@ -6,15 +6,12 @@ import (
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
-	"github.com/spf13/viper"
 
 	"github.com/coophive/faucet.coophive.network/enums"
 )
 
 func init() {
 	pf := pflag.NewFlagSet("conf", pflag.ContinueOnError)
-
-	Conf = viper.New()
 
 	checkDup := func(key string, block string) {
 		if Conf.IsSet(key) {
