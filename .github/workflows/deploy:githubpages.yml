@@ -9,8 +9,8 @@ on:
       - '**'
 #    paths:
 #      - '.github/workflows/deploy-githubpages.yml'
-  pull_request:
-    branches: [ 'main' ]
+#  pull_request:
+#    branches: [ 'main' ]
 
   workflow_dispatch:
 
