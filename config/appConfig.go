@@ -33,7 +33,7 @@ var appConfig = configMap[string]{
 		"1337",
 	},
 	enums.WEB3_PRIVATE_KEY: {
-		"private key",
+		"Private key hex to fund user requests with",
 		"0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
 	},
 
@@ -69,10 +69,10 @@ var appConfig = configMap[string]{
 		desc:       "Passphrase text file to decrypt keystore",
 		defaultVal: "password.txt",
 	},
-	enums.WALLET_PRIVKEY: {
-		desc:       "Private key hex to fund user requests with",
-		defaultVal: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // FIXME: use WEB3_PRIVATE_KEY
-	},
+	// enums.WALLET_PRIVKEY: {
+	// 	desc:       "Private key hex to fund user requests with",
+	// 	defaultVal: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // FIXME: use WEB3_PRIVATE_KEY
+	// },
 	// enums.WALLET_PROVIDER: {
 	// 	desc:       "Endpoint for Ethereum JSON-RPC connection",
 	// 	defaultVal: "",
