@@ -38,17 +38,17 @@ const (
 	WEB3_CHAIN_ID    = "WEB3_CHAIN_ID"
 )
 const (
-	FAUCET_AMOUNT      = "faucet_amount"
-	FAUCET_TOKENAMOUNT = "faucet_tokenamount"
-	FAUCET_MINUTES     = "faucet_minutes"
-	FAUCET_NAME        = "faucet_name"
-	FAUCET_SYMBOL      = "faucet_symbol"
-	WALLET_KEYJSON     = "wallet_keyjson"
-	WALLET_KEYPASS     = "wallet_keypass"
-	WALLET_PRIVKEY     = "wallet_privkey"
-	HIVE_TOKEN         = "wallet_tokenaddress"
-	HCAPTCHA_SITEKEY   = "hcaptcha_sitekey"
-	HCAPTCHA_SECRET    = "hcaptcha_secret"
+	FAUCET_AMOUNT       = "faucet_amount"
+	FAUCET_TOKENAMOUNT  = "faucet_tokenamount"
+	FAUCET_MINUTES      = "faucet_minutes"
+	FAUCET_NAME         = "faucet_name"
+	FAUCET_SYMBOL       = "faucet_symbol"
+	WALLET_KEYJSON      = "wallet_keyjson"
+	WALLET_KEYPASS      = "wallet_keypass"
+	WALLET_PRIVKEY      = "wallet_privkey"
+	WALLET_TOKENADDRESS = "wallet_tokenaddress"
+	HCAPTCHA_SITEKEY    = "hcaptcha_sitekey"
+	HCAPTCHA_SECRET     = "hcaptcha_secret"
 )
 
 const (

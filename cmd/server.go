@@ -60,7 +60,7 @@ func Execute() {
 
 	provider := conf.GetString(enums.WEB3_RPC_URL)
 
-	txBuilder, err := chain.NewTxBuilder(provider, privateKey, big.NewInt(chainID), common.HexToAddress(conf.GetString(enums.HIVE_TOKEN)))
+	txBuilder, err := chain.NewTxBuilder(provider, privateKey, big.NewInt(chainID), common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
 	if err != nil {
 		logrus.Info("provider:", provider)
 		panic(fmt.Errorf("cannot connect to web3 provider: %w", err))
