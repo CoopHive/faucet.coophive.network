@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+#    tags:
+#      - '*'
+#      - '**'
+#    paths:
+#      - '.github/workflows/deploy-githubpages.yml'
+#  pull_request:
+#    branches: [ 'main' ]
+
+  workflow_dispatch:
+
+env:
+  VITE_BASE_URL: 'http' #TODO:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+defaults:
+  run:
+    working-directory: ./web
+    shell: bash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: default
+    #      name: github-pages
+    #      url: ${{ steps.build-publish.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.6.6
+      - uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+          cache-dependency-path: "./web/pnpm-lock.yaml"
+          node-version: "20.11.0"
+          check-latest: true
+
+      - run: pnpm install
+        working-directory: web
+
+
+      - name: Get working directory
+        id: wkdir
+        run: |
+          echo "wkdir=$(pwd)" >> $GITHUB_OUTPUT
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ steps.wkdir.outputs.wkdir }}/dist
