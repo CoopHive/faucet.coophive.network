@@ -19,9 +19,14 @@ import (
 	"github.com/CoopHive/faucet.coophive.network/internal/server"
 )
 
+var versionFlag bool
+
 func init() {
 	flag.Parse()
-	if *versionFlag {
+
+	flag.BoolVar(&versionFlag, "v", false, "print version")
+
+	if versionFlag {
 		fmt.Println(config.Conf.GetString(enums.VERSION))
 		os.Exit(0)
 	}
