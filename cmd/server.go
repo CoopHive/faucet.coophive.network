@@ -17,6 +17,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/coophive/faucet.coophive.network/config"
+	"github.com/coophive/faucet.coophive.network/enums"
 	"github.com/coophive/faucet.coophive.network/internal/chain"
 	"github.com/coophive/faucet.coophive.network/internal/server"
 )
@@ -69,7 +71,6 @@ var FAUCET_INTERVAL = func() int {
 }
 
 var (
-	appVersion = "v0.1.0"
 	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "CALIBRATION": 314159, "fvm": 314}
 
 	httpPortFlag = flag.Int("httpport", PORT, "Listener port to serve HTTP connection")
@@ -95,14 +96,13 @@ var (
 func init() {
 	flag.Parse()
 	if *versionFlag {
-		fmt.Println(appVersion)
+		fmt.Println(config.Conf.GetString(enums.VERSION))
 		os.Exit(0)
 	}
 
 	configFile := GetFromEnv("CONFIG_FILE", ".env")
 
 	viper.SetConfigFile(configFile)
-	vipe.ReadInConfig()
 
 	log.Infof("config File: %s", viper.Get(configFile))
 

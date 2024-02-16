@@ -1,0 +1,29 @@
+name: Delete Tags
+
+on:
+  pull_request:
+    types: [ closed ]
+
+permissions:
+  contents: write
+
+jobs:
+  pr_closed_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-tags: true
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Remove tag
+        run: |
+          echo "PR number is ${GITHUB_EVENT_PATH}"
+          PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          echo "PR number is $PR_NUMBER"
+          
+          git push origin --delete v0.0.0-pr$PR_NUMBER
+          
+        
+          

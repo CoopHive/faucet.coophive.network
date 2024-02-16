@@ -10,6 +10,7 @@ require (
 	github.com/jellydator/ttlcache/v2 v2.11.1
 	github.com/kataras/hcaptcha v0.0.2
 	github.com/sirupsen/logrus v1.9.3
+	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.18.2
 	github.com/urfave/negroni v1.0.0
 )
@@ -46,7 +47,6 @@ require (
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	github.com/tklauser/go-sysconf v0.3.5 // indirect
