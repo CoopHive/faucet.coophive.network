@@ -146,7 +146,7 @@
             <img src="/logo.jpg" alt="logo" />
           </div>
           <h1 class="title">
-            Receive some ETH and <br />100 HIVE drips
+            With ETH and <br />100 HIVE drips, and start building on CoopHive right away!
           </h1>
           <h2 class="subtitle">
             Serving from {faucetInfo.account}
