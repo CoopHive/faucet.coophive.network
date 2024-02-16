@@ -12,6 +12,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/sirupsen/logrus"
 
 	"github.com/CoopHive/faucet.coophive.network/config"
 	"github.com/CoopHive/faucet.coophive.network/enums"
@@ -59,6 +60,7 @@ func Execute() {
 	var ok bool
 
 	if chainID, ok = conf.Get(enums.WEB3_CHAIN_ID).(*big.Int); !ok {
+		logrus.Info("chain id ", conf.GetInt(enums.WEB3_CHAIN_ID))
 		panic(fmt.Errorf("failed to read chain id"))
 	}
 

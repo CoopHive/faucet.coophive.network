@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -11,9 +10,6 @@ import (
 )
 
 func main() {
-
-	log.Fatal(os.Getenv("DEBUG"), os.Getenv("XDEBUG"))
-
 	cmd.Execute()
 }
 
