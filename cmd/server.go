@@ -22,9 +22,9 @@ import (
 var versionFlag bool
 
 func init() {
-	flag.Parse()
+	flag.BoolVar(&versionFlag, "version", false, "print version")
 
-	flag.BoolVar(&versionFlag, "v", false, "print version")
+	flag.Parse()
 
 	if versionFlag {
 		fmt.Println(config.Conf.GetString(enums.VERSION))
