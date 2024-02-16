@@ -43,11 +43,11 @@ var appConfig = configMap[string]{
 	},
 	enums.FAUCET_AMOUNT: {
 		desc:       "Number of Ethers to transfer per user request",
-		defaultVal: "1",
+		defaultVal: "0.01",
 	},
 	enums.FAUCET_TOKENAMOUNT: {
 		desc:       "Number of Tokens to transfer per user request",
-		defaultVal: "1",
+		defaultVal: "10",
 	},
 	enums.FAUCET_MINUTES: {
 		desc:       "Number of minutes to wait between funding rounds",
