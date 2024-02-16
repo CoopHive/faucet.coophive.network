@@ -20,6 +20,8 @@ func init() {
 		logrus.Debugf(".env not found")
 	}
 
+	log.Fatal(os.Getenv("DEBUG"), os.Getenv("XDEBUG"))
+
 	pf := pflag.NewFlagSet("conf", pflag.ContinueOnError)
 
 	checkDup := func(key string, block string) {
