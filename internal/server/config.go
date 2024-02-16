@@ -1,27 +1,27 @@
 package server
 
 type Config struct {
-	network         string
-	symbol          string
-	httpPort        int
-	interval        int
-	payout          int
-	tokenPayout     int
-	proxyCount      int
-	hcaptchaSiteKey string
-	hcaptchaSecret  string
+	Network         string
+	Symbol          string
+	HttpPort        int
+	Interval        int
+	Payout          int
+	TokenPayout     int
+	ProxyCount      int
+	HcaptchaSiteKey string
+	HcaptchaSecret  string
 }
 
 func NewConfig(network, symbol string, httpPort, interval, payout, tokenPayout, proxyCount int, hcaptchaSiteKey, hcaptchaSecret string) *Config {
 	return &Config{
-		network:         network,
-		symbol:          symbol,
-		httpPort:        httpPort,
-		interval:        interval,
-		payout:          payout,
-		tokenPayout:     tokenPayout,
-		proxyCount:      proxyCount,
-		hcaptchaSiteKey: hcaptchaSiteKey,
-		hcaptchaSecret:  hcaptchaSecret,
+		Network:         network,
+		Symbol:          symbol,
+		HttpPort:        httpPort,
+		Interval:        interval,
+		Payout:          payout,
+		TokenPayout:     tokenPayout,
+		ProxyCount:      proxyCount,
+		HcaptchaSiteKey: hcaptchaSiteKey,
+		HcaptchaSecret:  hcaptchaSecret,
 	}
 }
