@@ -12,6 +12,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/sirupsen/logrus"
 
 	"github.com/CoopHive/faucet.coophive.network/config"
 	"github.com/CoopHive/faucet.coophive.network/enums"
@@ -61,6 +62,7 @@ func Execute() {
 
 	txBuilder, err := chain.NewTxBuilder(provider, privateKey, big.NewInt(chainID), common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
 	if err != nil {
+		logrus.Info("provider:", provider)
 		panic(fmt.Errorf("cannot connect to web3 provider: %w", err))
 	}
 
