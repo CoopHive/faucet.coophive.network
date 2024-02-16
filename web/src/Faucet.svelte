@@ -146,8 +146,7 @@
             <img src="/logo.jpg" alt="logo" />
           </div>
           <h1 class="title">
-            Receive 100 eth and <br />100 tokens
-            per request
+            Receive some ETH and <br />100 HIVE drips
           </h1>
           <h2 class="subtitle">
             Serving from {faucetInfo.account}
