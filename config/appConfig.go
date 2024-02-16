@@ -77,7 +77,7 @@ var appConfig = configMap[string]{
 	// 	desc:       "Endpoint for Ethereum JSON-RPC connection",
 	// 	defaultVal: "",
 	// },
-	enums.WALLET_TOKENADDRESS: {
+	enums.HIVE_TOKEN: {
 		desc:       "Address of ERC-20 token contract",
 		defaultVal: "",
 	},
