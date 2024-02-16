@@ -2,7 +2,7 @@ FROM node:20-alpine as frontend
 
 WORKDIR /app
 
-COPY web/package.json web/pnpm.lock ./
+COPY web/package.json web/pnpm-lock.yaml ./
 COPY web ./
 
 RUN npm install -g pnpm
