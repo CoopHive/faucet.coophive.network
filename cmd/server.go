@@ -32,22 +32,8 @@ func init() {
 }
 
 func Execute() {
-	privateKey, err := getPrivateKeyFromFlags()
-	if err != nil {
-		panic(fmt.Errorf("failed to read private key: %w", err))
-	}
-	var chainID *big.Int
-	if value, ok := chainIDMap[strings.ToLower(*netnameFlag)]; ok {
-		chainID = big.NewInt(int64(value))
-	}
-
-	txBuilder, err := chain.NewTxBuilder(*providerFlag, privateKey, chainID, common.HexToAddress(*tokenAddress))
-	if err != nil {
-		panic(fmt.Errorf("cannot connect to web3 provider: %w", err))
-	}
-
 	conf := config.Conf
-	config := &server.Config{
+	serverConfig := &server.Config{
 		conf.GetString(enums.NETWORK),
 		conf.GetString(enums.FAUCET_SYMBOL),
 		conf.GetInt(enums.PORT),
@@ -59,14 +45,39 @@ func Execute() {
 		conf.GetString(enums.HCAPTCHA_SECRET),
 	}
 
-	go server.NewServer(txBuilder, config).Run()
+	privateKey, err := createPrivateKey(conf.GetString(enums.WEB3_PRIVATE_KEY))
+	if err != nil {
+		panic(fmt.Errorf("failed to read private key: %w", err))
+	}
+
+	chainID := conf.Get(enums.WEB3_CHAIN_ID).(*big.Int)
+
+	provider := conf.GetString(enums.WALLET_PROVIDER)
+
+	txBuilder, err := chain.NewTxBuilder(provider, privateKey, chainID, common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
+	if err != nil {
+		panic(fmt.Errorf("cannot connect to web3 provider: %w", err))
+	}
+
+	go server.NewServer(txBuilder, serverConfig).Run()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	<-c
 }
 
-func getPrivateKeyFromFlags() (*ecdsa.PrivateKey, error) {
+func createPrivateKey(hexkey string) (*ecdsa.PrivateKey, error) {
+
+	if strings.Trim(hexkey, " ") == "" {
+		return nil, errors.New("missing private key or keystore")
+	}
+	if chain.Has0xPrefix(hexkey) {
+		hexkey = hexkey[2:]
+	}
+	return crypto.HexToECDSA(hexkey)
+}
+
+/*func getPrivateKeyFromFlags() (*ecdsa.PrivateKey, error) {
 	if *privKeyFlag != "" {
 		hexkey := *privKeyFlag
 		if chain.Has0xPrefix(hexkey) {
@@ -88,3 +99,4 @@ func getPrivateKeyFromFlags() (*ecdsa.PrivateKey, error) {
 
 	return chain.DecryptKeyfile(keyfile, strings.TrimRight(string(password), "\r\n"))
 }
+*/
