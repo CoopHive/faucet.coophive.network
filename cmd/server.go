@@ -44,7 +44,7 @@ func Execute() {
 		conf.GetString(enums.FAUCET_SYMBOL),
 		conf.GetInt(enums.PORT),
 		conf.GetInt(enums.FAUCET_MINUTES),
-		conf.GetInt(enums.FAUCET_AMOUNT),
+		conf.GetInt(enums.ETH_DRIP),
 		conf.GetInt(enums.FAUCET_TOKENAMOUNT),
 		conf.GetInt(enums.PROXY_COUNT),
 		conf.GetString(enums.HCAPTCHA_SITEKEY),

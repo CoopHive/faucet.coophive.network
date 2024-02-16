@@ -38,7 +38,7 @@ const (
 	WEB3_CHAIN_ID    = "WEB3_CHAIN_ID"
 )
 const (
-	FAUCET_AMOUNT       = "faucet_amount"
+	ETH_DRIP            = "faucet_amount"
 	FAUCET_TOKENAMOUNT  = "faucet_tokenamount"
 	FAUCET_MINUTES      = "faucet_minutes"
 	FAUCET_NAME         = "faucet_name"

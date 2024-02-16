@@ -41,7 +41,7 @@ var appConfig = configMap[string]{
 		"port to run",
 		"8080",
 	},
-	enums.FAUCET_AMOUNT: {
+	enums.ETH_DRIP: {
 		desc:       "Number of Ethers to transfer per user request",
 		defaultVal: "0.01",
 	},
