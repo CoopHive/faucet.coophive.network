@@ -41,6 +41,9 @@ jobs:
           go-version-file: go.mod
           check-latest: true
 
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.6.6
       - uses: actions/setup-node@v3
         with:
           cache: "pnpm"
@@ -50,7 +53,6 @@ jobs:
 
       - run: pnpm install
         working-directory: web
-
 
       - name: Git config
         run: |
