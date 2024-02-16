@@ -18,7 +18,7 @@ ENV GO111MODULE on
 WORKDIR /app
 RUN mkdir -p ./bin
 
-RUN apk add --no-cache gcc musl-dev linux-headers
+#RUN apk add --no-cache gcc musl-dev linux-headers
 
 RUN go install github.com/goreleaser/goreleaser@latest
 
@@ -30,19 +30,21 @@ COPY . .
 COPY --from=frontend /app/dist web/dist
 
 
-RUN goreleaser build --single-target --clean -o ./bin/coophive-faucet --snapshot
+RUN goreleaser build --single-target --clean -o ./bin/faucet --snapshot
 
-#RUN ./bin/coophive-faucet version
+#RUN ./bin/faucet version
 
 FROM alpine:latest
 
+WORKDIR /bin
+
 RUN apk add --no-cache ca-certificates
 
-COPY --from=backend /app/coophive-faucet /app/coophive-faucet
+COPY --from=backend /app/bin/faucet /bin/faucet
 
 EXPOSE 8080
 
-ENTRYPOINT ["/app/coophive-faucet"]
+ENTRYPOINT ["/bin/faucet"]
 
 LABEL authors="Hiro <laciferin@gmail.com>"
 LABEL maintainer="Hiro <laciferin@gmail.com>"

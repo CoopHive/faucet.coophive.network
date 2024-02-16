@@ -29,8 +29,8 @@ func NewServer(builder chain.TxBuilder, cfg *Config) *Server {
 func (s *Server) setupRouter() *http.ServeMux {
 	router := http.NewServeMux()
 	router.Handle("/", http.FileServer(web.Dist()))
-	limiter := NewLimiter(s.cfg.proxyCount, time.Duration(s.cfg.interval)*time.Minute)
-	hcaptcha := NewCaptcha(s.cfg.hcaptchaSiteKey, s.cfg.hcaptchaSecret)
+	limiter := NewLimiter(s.cfg.ProxyCount, time.Duration(s.cfg.Interval)*time.Minute)
+	hcaptcha := NewCaptcha(s.cfg.HcaptchaSiteKey, s.cfg.HcaptchaSecret)
 	router.Handle("/api/claim", negroni.New(limiter, hcaptcha, negroni.Wrap(s.handleClaim())))
 	router.Handle("/api/info", s.handleInfo())
 
@@ -40,8 +40,8 @@ func (s *Server) setupRouter() *http.ServeMux {
 func (s *Server) Run() {
 	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger())
 	n.UseHandler(s.setupRouter())
-	log.Infof("Starting http server %d", s.cfg.httpPort)
-	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(s.cfg.httpPort), n))
+	log.Infof("Starting http server %d", s.cfg.HttpPort)
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(s.cfg.HttpPort), n))
 }
 
 func (s *Server) handleClaim() http.HandlerFunc {
@@ -55,14 +55,14 @@ func (s *Server) handleClaim() http.HandlerFunc {
 		address, _ := readAddress(r)
 		ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
 		defer cancel()
-		txHash, err := s.Transfer(ctx, address, chain.EtherToWei(int64(s.cfg.payout)))
+		txHash, err := s.Transfer(ctx, address, chain.EtherToWei(int64(s.cfg.Payout)))
 		if err != nil {
 			log.WithError(err).Error("Failed to send transaction")
 			renderJSON(w, claimResponse{Message: err.Error()}, http.StatusInternalServerError)
 			return
 		}
 
-		tokenTxHash, err := s.TransferTokens(ctx, address, chain.EtherToWei(int64(s.cfg.tokenPayout)))
+		tokenTxHash, err := s.TransferTokens(ctx, address, chain.EtherToWei(int64(s.cfg.TokenPayout)))
 		if err != nil {
 			log.WithError(err).Error("Failed to send transaction")
 			renderJSON(w, claimResponse{Message: err.Error()}, http.StatusInternalServerError)
@@ -87,10 +87,10 @@ func (s *Server) handleInfo() http.HandlerFunc {
 		}
 		renderJSON(w, infoResponse{
 			Account:         s.Sender().String(),
-			Network:         s.cfg.network,
-			Symbol:          s.cfg.symbol,
-			Payout:          strconv.Itoa(s.cfg.payout),
-			HcaptchaSiteKey: s.cfg.hcaptchaSiteKey,
+			Network:         s.cfg.Network,
+			Symbol:          s.cfg.Symbol,
+			Payout:          strconv.Itoa(s.cfg.Payout),
+			HcaptchaSiteKey: s.cfg.HcaptchaSiteKey,
 		}, http.StatusOK)
 	}
 }

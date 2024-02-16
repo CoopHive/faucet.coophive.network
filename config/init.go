@@ -11,6 +11,8 @@ import (
 )
 
 func init() {
+
+	// fmt.Printf("CoopHive: %s\n", hive.VERSION)
 	pf := pflag.NewFlagSet("conf", pflag.ContinueOnError)
 
 	checkDup := func(key string, block string) {

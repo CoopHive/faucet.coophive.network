@@ -8,14 +8,11 @@ import (
 	"math/big"
 	"os"
 	"os/signal"
-	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	log "github.com/sirupsen/logrus"
-
-	"github.com/spf13/viper"
+	"github.com/sirupsen/logrus"
 
 	"github.com/CoopHive/faucet.coophive.network/config"
 	"github.com/CoopHive/faucet.coophive.network/enums"
@@ -23,88 +20,17 @@ import (
 	"github.com/CoopHive/faucet.coophive.network/internal/server"
 )
 
-func GetFromEnv(key string, defaultVal string) (val string) {
-	val = os.Getenv(key)
-
-	if val == "" {
-		val = defaultVal
-	}
-	return
-}
-
-var PORT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PORT", "8080"))
-	if err != nil {
-		return 8080
-	}
-	return p
-}()
-var PROXY_COUNT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "0"))
-	if err != nil {
-		return 0
-	}
-	return p
-}()
-
-var FAUCET_ETHER_AMOUNT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "1"))
-	if err != nil {
-		return 0
-	}
-	return p
-}()
-var FAUCET_TOKEN_AMOUNT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "1"))
-	if err != nil {
-		return 1
-	}
-	return p
-}()
-
-var FAUCET_INTERVAL = func() int {
-	p, err := strconv.Atoi(GetFromEnv("FAUCET_INTERVAL", "1440"))
-	if err != nil {
-		return 1440
-	}
-	return p
-}
-
-var (
-	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "CALIBRATION": 314159, "fvm": 314}
-
-	httpPortFlag = flag.Int("httpport", PORT, "Listener port to serve HTTP connection")
-	proxyCntFlag = flag.Int("proxycount", PROXY_COUNT, "Count of reverse proxies in front of the server")
-	versionFlag  = flag.Bool("version", false, "Print version number")
-
-	payoutFlag       = flag.Int("faucet.amount", FAUCET_ETHER_AMOUNT, "Number of Ethers to transfer per user request")
-	payoutTokensFlag = flag.Int("faucet.tokenamount", FAUCET_TOKEN_AMOUNT, "Number of Tokens to transfer per user request")
-	intervalFlag     = flag.Int("faucet.minutes", FAUCET_INTERVAL(), "Number of minutes to wait between funding rounds")
-	netnameFlag      = flag.String("faucet.name", GetFromEnv("FAUCET_NAME", "CALIBRATION"), "Network name to display on the frontend")
-	symbolFlag       = flag.String("faucet.symbol", GetFromEnv("FAUCET_SYMBOL", "HIVE"), "Token symbol to display on the frontend")
-
-	keyJSONFlag  = flag.String("wallet.keyjson", GetFromEnv("KEYSTORE", ""), "Keystore file to fund user requests with")
-	keyPassFlag  = flag.String("wallet.keypass", GetFromEnv("KEYSTORE_PASS", "password.txt"), "Passphrase text file to decrypt keystore")
-	privKeyFlag  = flag.String("wallet.privkey", os.Getenv("PRIVATE_KEY"), "Private key hex to fund user requests with")
-	providerFlag = flag.String("wallet.provider", os.Getenv("WEB3_PROVIDER"), "Endpoint for Ethereum JSON-RPC connection")
-	tokenAddress = flag.String("wallet.tokenaddress", os.Getenv("TOKEN_ADDRESS"), "Address of ERC-20 token contract")
-
-	hcaptchaSiteKeyFlag = flag.String("hcaptcha.sitekey", os.Getenv("HCAPTCHA_SITEKEY"), "hCaptcha sitekey")
-	hcaptchaSecretFlag  = flag.String("hcaptcha.secret", os.Getenv("HCAPTCHA_SECRET"), "hCaptcha secret")
-)
+var versionFlag bool
 
 func init() {
+	flag.BoolVar(&versionFlag, "version", false, "print version")
+
 	flag.Parse()
-	if *versionFlag {
+
+	if versionFlag {
 		fmt.Println(config.Conf.GetString(enums.VERSION))
 		os.Exit(0)
 	}
-
-	configFile := GetFromEnv("CONFIG_FILE", ".env")
-
-	viper.SetConfigFile(configFile)
-
-	log.Infof("config File: %s", viper.Get(configFile))
 
 	// if err := godotenv.Load(configFile); err != nil {
 	// 	log.Errorf("failed to load configfile-%s %v", configFile, err)
@@ -112,28 +38,53 @@ func init() {
 }
 
 func Execute() {
-	privateKey, err := getPrivateKeyFromFlags()
+	conf := config.Conf
+	serverConfig := &server.Config{
+		conf.GetString(enums.NETWORK),
+		conf.GetString(enums.FAUCET_SYMBOL),
+		conf.GetInt(enums.PORT),
+		conf.GetInt(enums.FAUCET_MINUTES),
+		conf.GetInt(enums.FAUCET_AMOUNT),
+		conf.GetInt(enums.FAUCET_TOKENAMOUNT),
+		conf.GetInt(enums.PROXY_COUNT),
+		conf.GetString(enums.HCAPTCHA_SITEKEY),
+		conf.GetString(enums.HCAPTCHA_SECRET),
+	}
+
+	privateKey, err := createPrivateKey(conf.GetString(enums.WEB3_PRIVATE_KEY))
 	if err != nil {
 		panic(fmt.Errorf("failed to read private key: %w", err))
 	}
-	var chainID *big.Int
-	if value, ok := chainIDMap[strings.ToLower(*netnameFlag)]; ok {
-		chainID = big.NewInt(int64(value))
-	}
 
-	txBuilder, err := chain.NewTxBuilder(*providerFlag, privateKey, chainID, common.HexToAddress(*tokenAddress))
+	chainID := conf.GetInt64(enums.WEB3_CHAIN_ID)
+
+	provider := conf.GetString(enums.WEB3_RPC_URL)
+
+	txBuilder, err := chain.NewTxBuilder(provider, privateKey, big.NewInt(chainID), common.HexToAddress(conf.GetString(enums.WALLET_TOKENADDRESS)))
 	if err != nil {
+		logrus.Info("provider:", provider)
 		panic(fmt.Errorf("cannot connect to web3 provider: %w", err))
 	}
-	config := server.NewConfig(*netnameFlag, *symbolFlag, *httpPortFlag, *intervalFlag, *payoutFlag, *payoutTokensFlag, *proxyCntFlag, *hcaptchaSiteKeyFlag, *hcaptchaSecretFlag)
-	go server.NewServer(txBuilder, config).Run()
+
+	go server.NewServer(txBuilder, serverConfig).Run()
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	<-c
 }
 
-func getPrivateKeyFromFlags() (*ecdsa.PrivateKey, error) {
+func createPrivateKey(hexkey string) (*ecdsa.PrivateKey, error) {
+
+	if strings.Trim(hexkey, " ") == "" {
+		return nil, errors.New("missing private key or keystore")
+	}
+	if chain.Has0xPrefix(hexkey) {
+		hexkey = hexkey[2:]
+	}
+	return crypto.HexToECDSA(hexkey)
+}
+
+/*func getPrivateKeyFromFlags() (*ecdsa.PrivateKey, error) {
 	if *privKeyFlag != "" {
 		hexkey := *privKeyFlag
 		if chain.Has0xPrefix(hexkey) {
@@ -155,3 +106,4 @@ func getPrivateKeyFromFlags() (*ecdsa.PrivateKey, error) {
 
 	return chain.DecryptKeyfile(keyfile, strings.TrimRight(string(password), "\r\n"))
 }
+*/
