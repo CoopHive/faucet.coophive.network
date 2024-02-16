@@ -13,7 +13,7 @@ var buildConfig = configMap[string]{
 	// app specific
 	enums.APP_NAME: {
 		"app name",
-		"CoopHive",
+		"CoopHive Faucet",
 	},
 	enums.ENV: {
 		"environment",
