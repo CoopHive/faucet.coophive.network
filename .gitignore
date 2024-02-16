@@ -29,3 +29,5 @@ faucet
 bin/
 
 ./data/
+./pnpm-lock.yaml
+./package-lock.json
