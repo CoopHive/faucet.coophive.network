@@ -21,7 +21,7 @@ var appConfig = configMap[string]{
 	},
 	enums.NETWORK: {
 		fmt.Sprintf("supported networks:%v", NETWORKS),
-		defaultNetwork,
+		defaultNetwork, // TODO: support networks
 	},
 
 	enums.WEB3_RPC_URL: {
