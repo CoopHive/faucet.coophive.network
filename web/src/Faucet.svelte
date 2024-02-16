@@ -7,9 +7,9 @@
   let input = null;
   let faucetInfo = {
     account: '0x0000000000000000000000000000000000000000',
-    network: 'testnet',
+    network: 'CoopHive',
     payout: 1,
-    symbol: 'ETH',
+    symbol: 'HIVE',
     hcaptcha_sitekey: '',
   };
 
