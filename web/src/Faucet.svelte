@@ -7,9 +7,9 @@
   let input = null;
   let faucetInfo = {
     account: '0x0000000000000000000000000000000000000000',
-    network: 'testnet',
+    network: 'CoopHive',
     payout: 1,
-    symbol: 'ETH',
+    symbol: 'HIVE',
     hcaptcha_sitekey: '',
   };
 
@@ -127,7 +127,7 @@
               <span class="icon">
                 <i class="fa fa-bath" />
               </span>
-              <span><b>Lilypad Faucet</b></span>
+              <span><b>CoopHive Faucet</b></span>
             </a>
           </div>
           <div id="navbarMenu" class="navbar-menu">
@@ -143,11 +143,10 @@
       <div class="container has-text-centered">
         <div class="column is-6 is-offset-3">
           <div>
-            <img src="/logo.png" alt="logo" />
+            <img src="/logo.jpg" alt="logo" />
           </div>
           <h1 class="title">
-            Receive 100 eth and <br />100 tokens
-            per request
+            With ETH and <br />100 HIVE drips, start building on CoopHive right away 🚀
           </h1>
           <h2 class="subtitle">
             Serving from {faucetInfo.account}
@@ -174,7 +173,7 @@
             </div>
           </div>
           <div>
-            <img src="/feature.png" alt="feature" style="border: 1px solid #fff;" />
+            <img src="/feature.jpg" alt="feature" style="border: 1px solid #fff;" />
           </div>
         </div>
       </div>
