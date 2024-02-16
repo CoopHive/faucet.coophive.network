@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    tags:
-      - '*'
-      - '**'
+#    tags:
+#      - '*'
+#      - '**'
 #    paths:
 #      - '.github/workflows/deploy-githubpages.yml'
 #  pull_request:
