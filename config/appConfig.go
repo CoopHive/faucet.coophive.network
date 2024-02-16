@@ -89,6 +89,10 @@ var appConfig = configMap[string]{
 		desc:       "hCaptcha secret",
 		defaultVal: "",
 	},
+	enums.PROXY_COUNT: {
+		"proxy count",
+		"0",
+	},
 }
 
 const defaultNetwork = "coophive"
