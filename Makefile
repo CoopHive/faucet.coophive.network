@@ -8,7 +8,7 @@ build-ci:
 		-X 'github.com/CoopHive/faucet.coophive.network/config.version=$$(git describe --tags --abbrev=0)' \
 		-X 'github.com/CoopHive/faucet.coophive.network/config.commitSha=$$(git rev-parse HEAD)' \
 	" -o ./bin/faucet-ci .
-	./bin/faucet-ci version
+	./bin/faucet-ci --version
 
 export VERSION=$(git describe --tags --abbrev=0)
 export COMMIT_SHA=$(git rev-parse HEAD)
