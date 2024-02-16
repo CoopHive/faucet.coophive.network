@@ -24,3 +24,6 @@ password.txt
 .env.*
 .env*
 *.env
+
+faucet
+bin/
