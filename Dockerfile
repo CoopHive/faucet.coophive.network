@@ -23,7 +23,7 @@ RUN apk add --no-cache gcc musl-dev linux-headers
 RUN go install github.com/goreleaser/goreleaser@latest
 
 COPY go.* ./
-RUN go get
+RUN go mod download
 
 COPY . .
 
