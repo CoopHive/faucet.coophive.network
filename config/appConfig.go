@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"strconv"
 
 	"github.com/CoopHive/faucet.coophive.network/enums"
 )
@@ -38,37 +37,41 @@ var appConfig = configMap[string]{
 		"0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
 	},
 
+	enums.PORT: {
+		"port to run",
+		"8080",
+	},
 	enums.FAUCET_AMOUNT: {
 		desc:       "Number of Ethers to transfer per user request",
-		defaultVal: FAUCET_ETHER_AMOUNT,
+		defaultVal: "1",
 	},
 	enums.FAUCET_TOKENAMOUNT: {
 		desc:       "Number of Tokens to transfer per user request",
-		defaultVal: FAUCET_TOKEN_AMOUNT,
+		defaultVal: "1",
 	},
 	enums.FAUCET_MINUTES: {
 		desc:       "Number of minutes to wait between funding rounds",
-		defaultVal: strconv.Itoa(FaucetInterval()),
+		defaultVal: "1440",
 	},
 	enums.FAUCET_NAME: {
 		desc:       "Network name to display on the frontend",
-		defaultVal: GetFromEnv("FAUCET_NAME", "CALIBRATION"),
+		defaultVal: NETWORKS[1],
 	},
 	enums.FAUCET_SYMBOL: {
 		desc:       "Token symbol to display on the frontend",
-		defaultVal: GetFromEnv("FAUCET_SYMBOL", "HIVE"),
+		defaultVal: "HIVE",
 	},
 	enums.WALLET_KEYJSON: {
 		desc:       "Keystore file to fund user requests with",
-		defaultVal: GetFromEnv("KEYSTORE", ""),
+		defaultVal: "",
 	},
 	enums.WALLET_KEYPASS: {
 		desc:       "Passphrase text file to decrypt keystore",
-		defaultVal: GetFromEnv("KEYSTORE_PASS", "password.txt"),
+		defaultVal: "password.txt",
 	},
 	enums.WALLET_PRIVKEY: {
 		desc:       "Private key hex to fund user requests with",
-		defaultVal: os.Getenv("PRIVATE_KEY"),
+		defaultVal: "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80", // FIXME: use WEB3_PRIVATE_KEY
 	},
 	enums.WALLET_PROVIDER: {
 		desc:       "Endpoint for Ethereum JSON-RPC connection",

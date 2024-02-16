@@ -8,7 +8,6 @@ import (
 	"math/big"
 	"os"
 	"os/signal"
-	"strconv"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -19,53 +18,6 @@ import (
 	"github.com/CoopHive/faucet.coophive.network/internal/chain"
 	"github.com/CoopHive/faucet.coophive.network/internal/server"
 )
-
-func GetFromEnv(key string, defaultVal string) (val string) {
-	val = os.Getenv(key)
-
-	if val == "" {
-		val = defaultVal
-	}
-	return
-}
-
-var PORT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PORT", "8080"))
-	if err != nil {
-		return 8080
-	}
-	return p
-}()
-var PROXY_COUNT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "0"))
-	if err != nil {
-		return 0
-	}
-	return p
-}()
-
-var FAUCET_ETHER_AMOUNT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "1"))
-	if err != nil {
-		return 0
-	}
-	return p
-}()
-var FAUCET_TOKEN_AMOUNT = func() int {
-	p, err := strconv.Atoi(GetFromEnv("PROXY_COUNT", "1"))
-	if err != nil {
-		return 1
-	}
-	return p
-}()
-
-var FAUCET_INTERVAL = func() int {
-	p, err := strconv.Atoi(GetFromEnv("FAUCET_INTERVAL", "1440"))
-	if err != nil {
-		return 1440
-	}
-	return p
-}
 
 var (
 	chainIDMap = map[string]int{"goerli": 5, "sepolia": 11155111, "CALIBRATION": 314159, "fvm": 314}
