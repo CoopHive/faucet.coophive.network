@@ -127,7 +127,7 @@
               <span class="icon">
                 <i class="fa fa-bath" />
               </span>
-              <span><b>Lilypad Faucet</b></span>
+              <span><b>CoopHive Faucet</b></span>
             </a>
           </div>
           <div id="navbarMenu" class="navbar-menu">
