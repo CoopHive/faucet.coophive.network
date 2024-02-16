@@ -33,6 +33,10 @@ type out struct {
 	Conf *viper.Viper
 }
 
+func init() {
+
+}
+
 func newConfig() (o out) {
 	pf := pflag.NewFlagSet("conf", pflag.ContinueOnError)
 

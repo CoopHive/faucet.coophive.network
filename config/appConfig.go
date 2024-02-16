@@ -8,22 +8,13 @@ import (
 	"github.com/coophive/faucet.coophive.network/enums"
 )
 
-const DEFAULT_DEALER = "std-autoaccept"
+var NETWORKS = []string{"coophive", "calibration"}
 
 var appConfig = configMap[string]{
 	enums.DEBUG: {
 		desc:       "debug mode",
 		defaultVal: "false",
 	},
-	enums.DEALER: {
-		"Dealer for accepting/denying solver-matched deals",
-		DEFAULT_DEALER,
-	},
-	// 	enums.DEALER_PATH: {
-	// 		"Dealer path for resource provider",
-	// 		"./autoaccept.so", // TODO: set default to empty
-	// 	},
-
 	enums.APP_DIR: {
 		"App Location Directory",
 		"$HOME/coophive-faucet",
@@ -47,7 +38,7 @@ var appConfig = configMap[string]{
 	},
 }
 
-const defaultNetwork = "builtin" // coophive
+const defaultNetwork = "coophive"
 
 func init() {
 	userDir, err := os.UserHomeDir()
@@ -55,5 +46,5 @@ func init() {
 		panic(err)
 	}
 
-	appConfig[enums.APP_DIR].defaultVal = path.Join(userDir, "coophive")
+	appConfig[enums.APP_DIR].defaultVal = path.Join(userDir, "coophive-faucet")
 }
