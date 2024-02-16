@@ -35,6 +35,9 @@ builds:
       - goos: windows
         goarch: arm64
 
+      - goos: windows
+        goarch: arm
+
     dir: "." #go.mod
 
 universal_binaries:
