@@ -3,7 +3,7 @@ package config
 import (
 	"github.com/spf13/viper"
 
-	"github.com/coophive/faucet.coophive.network/enums"
+	"github.com/CoopHive/faucet.coophive.network/enums"
 )
 
 var version string

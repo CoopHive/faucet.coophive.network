@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/coophive/faucet.coophive.network/internal/chain"
+	"github.com/CoopHive/faucet.coophive.network/internal/chain"
 )
 
 type claimRequest struct {

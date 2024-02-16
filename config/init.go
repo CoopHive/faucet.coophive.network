@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
-	"github.com/coophive/faucet.coophive.network/enums"
+	"github.com/CoopHive/faucet.coophive.network/enums"
 )
 
 func init() {
