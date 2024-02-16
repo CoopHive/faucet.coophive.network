@@ -21,13 +21,15 @@ jobs:
           cache: true
           go-version-file: go.mod
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "20"
+          cache: "pnpm"
+          cache-dependency-path: "./web/pnpm-lock.yaml"
+          node-version: "20.9.0"
+          check-latest: true
 
       - name: Generate
-        run: go generate -x
+        run: go generate
 
       - name: Build
         run: go build -v

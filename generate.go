@@ -1,3 +1,3 @@
 package main
 
-//go:generate pnpm install
+//go:generate cd web && pnpm install
