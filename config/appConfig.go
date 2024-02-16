@@ -43,7 +43,7 @@ var appConfig = configMap[string]{
 	},
 	enums.ETH_DRIP: {
 		desc:       "Number of Ethers to transfer per user request",
-		defaultVal: "0.01",
+		defaultVal: "0",
 	},
 	enums.HIVE_DRIP: {
 		desc:       "Number of Tokens to transfer per user request",
@@ -51,7 +51,7 @@ var appConfig = configMap[string]{
 	},
 	enums.FAUCET_MINUTES: {
 		desc:       "Number of minutes to wait between funding rounds",
-		defaultVal: "1440",
+		defaultVal: "60",
 	},
 	enums.FAUCET_NAME: {
 		desc:       "Network name to display on the frontend",
