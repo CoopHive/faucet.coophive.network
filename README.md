@@ -98,17 +98,20 @@ The following are the available command-line flags(excluding above wallet flags)
 | -hcaptcha.sitekey | hCaptcha sitekey                                 |               |
 | -hcaptcha.secret  | hCaptcha secret                                  |               |
 
-### Docker deployment
+### Docker 
 
 ```bash
-docker run -d -p 8080:8080 -e WEB3_PROVIDER=rpc endpoint -e PRIVATE_KEY=hex private key CoopHive/faucet.coophive.network:1.1.0
+docker run -d -p 8080:8080 -e WEB3_PROVIDER="" -e PRIVATE_KEY="$PRIVATE_KEY" ghcr.io/coophive/faucet:latest
 ```
 
+<!--
 or
 
 ```bash
 docker run -d -p 8080:8080 -e WEB3_PROVIDER=rpc endpoint -e KEYSTORE=keystore path -v `pwd`/keystore:/app/keystore -v `pwd`/password.txt:/app/password.txt CoopHive/faucet.coophive.network:1.1.0
 ```
+
+-->
 
 ## License
 
