@@ -21,8 +21,8 @@ prerelease:
 	goreleaser check
 	goreleaser build --single-target --clean
 
-release:
-	goreleaser release --clean
+release-snapshot:
+	goreleaser release --clean --snapshot
 
 install-faucet:
 	goreleaser build --single-target --clean -o ./bin/${binName} --snapshot
