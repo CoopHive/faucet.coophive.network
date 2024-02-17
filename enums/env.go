@@ -1,10 +1,10 @@
 package enums
 
 const (
-	APP_NAME = "APP_NAME"
-	ENV      = "ENV"
-	PORT     = "PORT"
-	TIMEZONE = "TIMEZONE"
+	APP_NAME = "app_name"
+	ENV      = "env"
+	PORT     = "port"
+	TIMEZONE = "timezone"
 )
 
 const (
@@ -17,11 +17,11 @@ const (
 )
 
 const (
-	DEBUG      = "DEBUG"
-	VERSION    = "VERSION"
-	COMMIT_SHA = "COMMIT_SHA"
+	DEBUG      = "debug"
+	VERSION    = "version"
+	COMMIT_SHA = "commit_sha"
 
-	RELEASE_URL = "RELEASE_URL"
+	RELEASE_URL = "release_url"
 )
 
 const (
