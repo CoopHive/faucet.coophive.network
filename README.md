@@ -24,34 +24,38 @@ The faucet is a web application with the goal of distributing small amounts of E
 
 ### Installation
 
-1. Clone the repository and navigate to the app’s directory
-```bash
-git clone https://github.com/chainflag/eth-faucet.git
-cd eth-faucet
+#### For Linux, Unix, MacOS
+
+
+```shell
+OSARCH=$(uname -m | awk '{if ($0 ~ /arm64|aarch64/) print "arm64"; else if ($0 ~ /x86_64|amd64/) print "amd64"; else print "unsupported_arch"}') && export OSARCH
+echo $OSARCH
+OSNAME=$(uname -s | awk '{if ($1 == "Darwin") print "darwin"; else if ($1 == "Linux") print "linux"; else print "unsupported_os"}') && export OSNAME;
+echo $OSNAME
+
+
+tag="v0.5.4"
+url="https://github.com/CoopHive/faucet.coophive.network/releases/download/$tag/faucet-$OSNAME-$OSARCH"
+
+curl -sSL -o faucet $url
+chmod +x faucet
+./faucet version
+
 ```
 
-2. Bundle Frontend web with Vite
-```bash
-go generate
-```
-
-3. Build Go project 
-```bash
-go build -o eth-faucet
-```
 
 ## Usage
 
 **Use private key to fund users**
 
 ```bash
-./eth-faucet -httpport 8080 -wallet.provider http://localhost:8545 -wallet.privkey privkey
+./faucet -httpport 8080 -wallet.provider http://localhost:8545 -wallet.privkey privkey
 ```
 
 **Use keystore to fund users**
 
 ```bash
-./eth-faucet -httpport 8080 -wallet.provider http://localhost:8545 -wallet.keyjson keystore -wallet.keypass password.txt
+./faucet -httpport 8080 -wallet.provider http://localhost:8545 -wallet.keyjson keystore -wallet.keypass password.txt
 ```
 
 ### Configuration
@@ -72,7 +76,7 @@ echo "your keystore password" > `pwd`/password.txt
 
 Then run the faucet application without the wallet command-line flags:
 ```bash
-./eth-faucet -httpport 8080
+./faucet -httpport 8080
 ```
 
 **Optional Flags**
