@@ -17,11 +17,6 @@ The faucet is a web application with the goal of distributing small amounts of E
 
 ## Get started
 
-### Prerequisites
-
-* Go (1.17 or later)
-* Node.js
-
 ### Installation
 
 #### For Linux, Unix, MacOS
