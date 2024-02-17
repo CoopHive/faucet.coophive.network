@@ -36,6 +36,8 @@ RUN goreleaser build --single-target --clean -o ./bin/faucet --snapshot
 
 FROM alpine:latest
 
+ENV PORT=8080
+
 WORKDIR /bin
 
 RUN apk add --no-cache ca-certificates
