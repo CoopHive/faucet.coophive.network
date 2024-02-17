@@ -33,9 +33,9 @@ const (
 )
 
 const (
-	WEB3_RPC_URL     = "WEB3_RPC_URL"
-	WEB3_PRIVATE_KEY = "WEB3_PRIVATE_KEY"
-	WEB3_CHAIN_ID    = "WEB3_CHAIN_ID"
+	WEB3_RPC_URL     = "web3_rpc_url"
+	WEB3_PRIVATE_KEY = "web3_private_key"
+	WEB3_CHAIN_ID    = "web3_chain_id"
 )
 const (
 	ETH_DRIP            = "eth_drip"
