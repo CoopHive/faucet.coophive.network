@@ -28,8 +28,7 @@ func init() {
 	// }
 
 	cmdFlags := map[string]bool{
-		enums.APP_DIR: true,
-		enums.NETWORK: true,
+		enums.APP_DIR: false,
 	}
 
 	for key, meta := range buildConfig {
@@ -45,7 +44,7 @@ func init() {
 		// automatic conversion of environment var key to `UPPER_CASE` will happen.
 		Conf.BindEnv(key)
 
-		if cmdFlags[key] {
+		if !cmdFlags[key] {
 			// key := strings.Replace("_", "-", key, -1)
 			// read command-line arguments
 			pf.String(key, meta.defaultVal, meta.desc)
