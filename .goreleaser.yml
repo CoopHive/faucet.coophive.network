@@ -42,7 +42,7 @@ builds:
 
     dir: "." #go.mod
 
-    no_unique_dist_dir: true
+    no_unique_dist_dir: false #else: it will cause exec format error on release
 
 universal_binaries:
   - name_template: 'faucet-darwin-universal' #binary name
