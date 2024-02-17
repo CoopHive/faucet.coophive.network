@@ -1,10 +1,10 @@
 # CoopHive Faucet
 
-[![Build](https://img.shields.io/github/actions/workflow/status/chainflag/eth-faucet/build.yml?branch=main)](https://github.com/chainflag/eth-faucet/actions/workflows/build.yml)
-[![Release](https://img.shields.io/github/v/release/chainflag/eth-faucet)](https://github.com/chainflag/eth-faucet/releases)
-[![Report](https://goreportcard.com/badge/github.com/chainflag/eth-faucet)](https://goreportcard.com/report/github.com/chainflag/eth-faucet)
-[![Go](https://img.shields.io/github/go-mod/go-version/chainflag/eth-faucet)](https://go.dev/)
-[![License](https://img.shields.io/github/license/chainflag/eth-faucet)](https://github.com/chainflag/eth-faucet/blob/main/LICENSE)
+[![Build](https://img.shields.io/github/actions/workflow/status/CoopHive/faucet.coophive.network/build.yml?branch=main)](https://github.com/CoopHive/faucet.coophive.network/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/CoopHive/faucet.coophive.network)](https://github.com/CoopHive/faucet.coophive.network/releases)
+[![Report](https://goreportcard.com/badge/github.com/CoopHive/faucet.coophive.network)](https://goreportcard.com/report/github.com/CoopHive/faucet.coophive.network)
+[![Go](https://img.shields.io/github/go-mod/go-version/CoopHive/faucet.coophive.network)](https://go.dev/)
+[![License](https://img.shields.io/github/license/CoopHive/faucet.coophive.network)](./LICENSE)
 
 The faucet is a web application with the goal of distributing small amounts of Ether in private and test networks.
 
@@ -106,13 +106,13 @@ The following are the available command-line flags(excluding above wallet flags)
 ### Docker deployment
 
 ```bash
-docker run -d -p 8080:8080 -e WEB3_PROVIDER=rpc endpoint -e PRIVATE_KEY=hex private key chainflag/eth-faucet:1.1.0
+docker run -d -p 8080:8080 -e WEB3_PROVIDER=rpc endpoint -e PRIVATE_KEY=hex private key CoopHive/faucet.coophive.network:1.1.0
 ```
 
 or
 
 ```bash
-docker run -d -p 8080:8080 -e WEB3_PROVIDER=rpc endpoint -e KEYSTORE=keystore path -v `pwd`/keystore:/app/keystore -v `pwd`/password.txt:/app/password.txt chainflag/eth-faucet:1.1.0
+docker run -d -p 8080:8080 -e WEB3_PROVIDER=rpc endpoint -e KEYSTORE=keystore path -v `pwd`/keystore:/app/keystore -v `pwd`/password.txt:/app/password.txt CoopHive/faucet.coophive.network:1.1.0
 ```
 
 ## License
