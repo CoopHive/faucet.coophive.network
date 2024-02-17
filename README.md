@@ -101,7 +101,7 @@ The following are the available command-line flags(excluding above wallet flags)
 ### Docker 
 
 ```bash
-docker run -d -p 8080:8080 -e WEB3_PROVIDER="" -e PRIVATE_KEY="$PRIVATE_KEY" ghcr.io/coophive/faucet:latest
+docker run -p 8080:8080 -e WEB3_PROVIDER="" -e PRIVATE_KEY="$PRIVATE_KEY" ghcr.io/coophive/faucet:latest
 ```
 
 <!--
