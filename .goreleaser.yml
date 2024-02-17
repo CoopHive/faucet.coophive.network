@@ -11,7 +11,7 @@ git:
 
 builds:
   - id: "cli"
-    binary: "bin/"
+    binary: "bin/faucet"
     main: "main.go"
 
     flags:
