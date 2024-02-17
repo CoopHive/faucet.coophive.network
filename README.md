@@ -43,6 +43,15 @@ chmod +x faucet
 
 ```
 
+#### Via GUI
+
+1. Go to https://github.com/CoopHive/faucet.coophive.network/releases/
+2. Navigate to latest stable semver release i.e release of format vX.Y.Z
+
+#### Via Go 1.21+
+
+`go install github.com/CoopHive/faucet.coophive.networke@latest`
+
 
 ## Usage
 
