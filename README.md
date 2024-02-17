@@ -91,8 +91,8 @@ The following are the available command-line flags(excluding above wallet flags)
 |--------------------|--------------------------------------------------|---------------|
 | --port             | Listener port to serve HTTP connection           | 8080          |
 | --proxy_count      | Count of reverse proxies in front of the server  | 0             |
-| --eth_dir          | Number of Ethers to transfer per user request    | 1             |
-| --faucet_minutes   | Number of minutes to wait between funding rounds | 1440          |
+| --eth_drip         | Number of Ethers to transfer per user request    | 0             |
+| --faucet_minutes   | Number of minutes to wait between funding rounds | 60            |
 | --faucet_name      | Network name to display on the frontend          | testnet       |
 | --faucet_symbol    | Token symbol to display on the frontend          | ETH           |
 | --hcaptcha_sitekey | hCaptcha sitekey                                 |               |
