@@ -9,6 +9,8 @@ git:
   tag_sort: -version:creatordate
   prerelease_suffix: "-"
 
+project_name: faucet
+
 builds:
   - id: "cli"
     binary: "bin/faucet"
@@ -39,6 +41,8 @@ builds:
         goarch: arm
 
     dir: "." #go.mod
+
+    no_unique_dist_dir: true
 
 universal_binaries:
   - name_template: 'faucet-darwin-universal' #binary name
