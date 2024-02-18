@@ -25,7 +25,7 @@ release-snapshot:
 	goreleaser release --clean --snapshot
 
 install-faucet:
-	goreleaser build --single-target --clean -o ./bin/${binName} --snapshot
+	goreleaser build --single-target --clean -o ./bin/faucet --snapshot
 
 .PHONY: release install-unix install-win build release release-linux make-bin
 
