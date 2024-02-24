@@ -16,6 +16,9 @@ export COMMIT_SHA=$(git rev-parse HEAD)
 build:
 	goreleaser build --single-target --clean -o bin/faucet --snapshot
 
+install:
+	goreleaser build --single-target --clean -o bin/faucet --snapshot
+
 prerelease:
 	echo "Version is $(VERSION)"
 	goreleaser check
@@ -39,7 +42,7 @@ install-faucet:
 	#go install
 	cp bin/faucet ~/go/bin/faucet
 
-.PHONY: release install-unix install-win build release release-linux make-bin
+.PHONY: release install-unix install-win build release release-linux make-bin install
 
 
 build-frontend:

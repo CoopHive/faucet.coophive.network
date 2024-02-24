@@ -4,7 +4,7 @@ const (
 	APP_NAME    = "app_name"
 	ENV         = "env"
 	PORT        = "port"
-	FAUCET_PORT = "faucet_port"
+	FAUCET_PORT = "FAUCET_PORT"
 	TIMEZONE    = "timezone"
 )
 
@@ -37,7 +37,7 @@ const (
 	WEB3_RPC_URL     = "web3_rpc_url"
 	WEB3_PRIVATE_KEY = "web3_private_key"
 
-	FAUCET_PRIVATE_KEY = "faucet_private_key"
+	FAUCET_PRIVATE_KEY = "FAUCET_PRIVATE_KEY"
 	WEB3_CHAIN_ID      = "web3_chain_id"
 )
 const (
