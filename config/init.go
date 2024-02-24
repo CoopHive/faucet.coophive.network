@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 
@@ -11,6 +12,18 @@ import (
 )
 
 func init() {
+
+	configFile := os.Getenv("CONFIG_FILE")
+
+	if configFile == "" {
+		configFile = ".env"
+	}
+
+	logrus.Infof("Loading config from %s", configFile)
+
+	if err := godotenv.Load(configFile); err != nil {
+		logrus.Errorf(".env loading error %v", err)
+	}
 
 	// fmt.Printf("CoopHive: %s\n", hive.VERSION)
 	pf := pflag.NewFlagSet("conf", pflag.ContinueOnError)
@@ -28,9 +41,9 @@ func init() {
 	// }
 
 	cmdFlags := map[string]bool{
-		enums.APP_DIR: false,
-		// enums.FAUCET_PRIVATE_KEY: false,
-		// enums.FAUCET_PORT:        false,
+		enums.APP_DIR:            false,
+		enums.FAUCET_PRIVATE_KEY: false,
+		enums.FAUCET_PORT:        false,
 	}
 
 	for key, meta := range buildConfig {
@@ -77,10 +90,10 @@ func init() {
 
 	logrus.Debugln("network: ", network)
 
-	pKey := Conf.Get(enums.FAUCET_PRIVATE_KEY)
-	if pKey != "" {
+	pKey := Conf.GetString(enums.FAUCET_PRIVATE_KEY)
+	if pKey == "" {
 		logrus.Info("setting web3 private key with faucet priv key")
-		Conf.Set(enums.WEB3_PRIVATE_KEY, pKey)
+		Conf.Set(enums.FAUCET_PRIVATE_KEY, Conf.Get(enums.WEB3_PRIVATE_KEY))
 	}
 
 	port := Conf.GetInt(enums.FAUCET_PORT)
