@@ -47,3 +47,7 @@ install-faucet:
 
 build-frontend:
 	cd web; npm run build;
+
+
+dc:
+	docker-compose up
