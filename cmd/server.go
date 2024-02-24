@@ -52,6 +52,7 @@ func Execute() {
 	}
 
 	pKey := conf.GetString(enums.WEB3_PRIVATE_KEY)
+	fmt.Print(pKey)
 	privateKey, err := createPrivateKey(pKey)
 	if err != nil {
 		panic(fmt.Errorf("failed to read private key: %w", err))
