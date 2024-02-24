@@ -51,3 +51,7 @@ build-frontend:
 
 dc:
 	docker-compose up
+
+
+sync-env:
+	scp .env.* hive:/faucet/
