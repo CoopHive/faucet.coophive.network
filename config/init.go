@@ -85,6 +85,7 @@ func init() {
 	}
 
 	port := Conf.GetString(enums.FAUCET_PORT)
+	log.Fatal(port)
 
 	if port != "" {
 		logrus.Info("setting web3 port with faucet port")
