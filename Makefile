@@ -54,4 +54,4 @@ dc:
 
 
 sync-env:
-	scp .env.* hive:/faucet/
+	scp .env.* hive:./faucet/
