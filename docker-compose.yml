@@ -1,6 +1,8 @@
 version: '3.8'
 services:
   sepolia:
+    environment:
+      NETWORK: sepolia
     env_file:
       - .env.sepolia
     image: ghcr.io/coophive/faucet:latest
