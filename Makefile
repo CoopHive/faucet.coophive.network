@@ -50,7 +50,7 @@ build-frontend:
 
 
 dc:
-	docker-compose up
+	docker-compose pull && docker-compose up
 
 
 sync-env:
