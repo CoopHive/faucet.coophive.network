@@ -77,15 +77,13 @@ func init() {
 
 	logrus.Debugln("network: ", network)
 
-	// TODO: below is not working
-	/*pKey := Conf.Get(enums.FAUCET_PRIVATE_KEY)
+	pKey := Conf.Get(enums.FAUCET_PRIVATE_KEY)
 	if pKey != "" {
 		logrus.Info("setting web3 private key with faucet priv key")
 		Conf.Set(enums.WEB3_PRIVATE_KEY, pKey)
-
 	}
 
-	port := Conf.GetInt(enums.FAUCET_PORT)
+	/*port := Conf.GetInt(enums.FAUCET_PORT)
 
 	if port != 0 {
 		logrus.Info("setting web3 port with port")
