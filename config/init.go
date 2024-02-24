@@ -75,4 +75,12 @@ func init() {
 
 	logrus.Debugln("network: ", network)
 
+	pKey := Conf.GetString(enums.FAUCET_PRIVATE_KEY)
+	if pKey == "" {
+		logrus.Info("setting web3 private key")
+		pKey = Conf.GetString(enums.WEB3_PRIVATE_KEY)
+	}
+
+	Conf.Set(enums.WEB3_PRIVATE_KEY, pKey)
+
 }

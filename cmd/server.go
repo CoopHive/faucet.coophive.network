@@ -51,11 +51,7 @@ func Execute() {
 		conf.GetString(enums.HCAPTCHA_SECRET),
 	}
 
-	pKey := conf.GetString(enums.FAUCET_PRIVATE_KEY)
-	if pKey == "" {
-		pKey = conf.GetString(enums.WEB3_PRIVATE_KEY)
-	}
-
+	pKey := conf.GetString(enums.WEB3_PRIVATE_KEY)
 	privateKey, err := createPrivateKey(pKey)
 	if err != nil {
 		panic(fmt.Errorf("failed to read private key: %w", err))
