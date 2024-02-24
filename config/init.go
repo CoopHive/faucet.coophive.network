@@ -83,12 +83,12 @@ func init() {
 		Conf.Set(enums.WEB3_PRIVATE_KEY, pKey)
 	}
 
-	/*port := Conf.GetInt(enums.FAUCET_PORT)
+	port := Conf.GetInt(enums.FAUCET_PORT)
 
-	if port != 0 {
-		logrus.Info("setting web3 port with port")
-		Conf.Set(enums.PORT, port)
+	if port == 0 {
+		Conf.Set(enums.FAUCET_PORT, Conf.GetInt(enums.PORT))
+		logrus.Info("setting faucet port with PORT")
 
-	}*/
+	}
 
 }
