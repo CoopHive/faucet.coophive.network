@@ -7,13 +7,14 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/CoopHive/faucet.coophive.network/internal/chain/token"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/CoopHive/faucet.coophive.network/internal/chain/token"
 )
 
 type TxBuilder interface {
