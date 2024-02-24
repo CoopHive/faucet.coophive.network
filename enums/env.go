@@ -1,10 +1,11 @@
 package enums
 
 const (
-	APP_NAME = "app_name"
-	ENV      = "env"
-	PORT     = "port"
-	TIMEZONE = "timezone"
+	APP_NAME    = "app_name"
+	ENV         = "env"
+	PORT        = "port"
+	FAUCET_PORT = "faucet_port"
+	TIMEZONE    = "timezone"
 )
 
 const (

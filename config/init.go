@@ -28,7 +28,9 @@ func init() {
 	// }
 
 	cmdFlags := map[string]bool{
-		enums.APP_DIR: false,
+		enums.APP_DIR:            false,
+		enums.FAUCET_PRIVATE_KEY: false,
+		enums.FAUCET_PORT:        false,
 	}
 
 	for key, meta := range buildConfig {
@@ -76,11 +78,18 @@ func init() {
 	logrus.Debugln("network: ", network)
 
 	pKey := Conf.GetString(enums.FAUCET_PRIVATE_KEY)
-	if pKey == "" {
-		logrus.Info("setting web3 private key")
-		pKey = Conf.GetString(enums.WEB3_PRIVATE_KEY)
+	if pKey != "" {
+		logrus.Info("setting web3 private key with faucet priv key")
+		Conf.Set(enums.WEB3_PRIVATE_KEY, pKey)
+
 	}
 
-	Conf.Set(enums.WEB3_PRIVATE_KEY, pKey)
+	port := Conf.GetString(enums.FAUCET_PORT)
+
+	if port != "" {
+		logrus.Info("setting web3 port with faucet port")
+		Conf.Set(enums.PORT, port)
+
+	}
 
 }
