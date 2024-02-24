@@ -1,5 +1,5 @@
-include .env
-export
+#include .env
+#export
 
 binName = faucet-$(shell uname -s)-$(shell uname -m)
 
