@@ -34,9 +34,12 @@ var appConfig = configMap[string]{
 	},
 	enums.WEB3_PRIVATE_KEY: {
 		"Private key hex to fund user requests with",
-		"0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
+		"",
 	},
-
+	enums.FAUCET_PRIVATE_KEY: {
+		"Private key (overrides web3private key)",
+		"",
+	},
 	enums.PORT: {
 		"port to run",
 		"8080",

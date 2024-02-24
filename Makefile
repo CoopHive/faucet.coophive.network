@@ -21,6 +21,16 @@ prerelease:
 	goreleaser check
 	goreleaser build --single-target --clean
 
+
+snapshot:
+	goreleaser build --clean --snapshot
+
+sync:
+	make snapshot
+
+	scp dist/cli_linux_amd64_v1/bin hive:/usr/local/bin/faucet
+	scp dist/cli_linux_amd64_v1/bin hive1:/usr/local/bin/faucet
+
 release-snapshot:
 	goreleaser release --clean --snapshot
 
