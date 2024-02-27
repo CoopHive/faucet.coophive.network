@@ -76,12 +76,20 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 	}
 
 	toAddress := common.HexToAddress(to)
-	unsignedTx := types.NewTx(&types.LegacyTx{
-		Nonce:    b.getAndIncrementNonce(),
-		To:       &toAddress,
-		Value:    value,
-		Gas:      gasLimit,
-		GasPrice: gasPrice,
+	// unsignedTx := types.NewTx(&types.LegacyTx{
+	// 	Nonce:    b.getAndIncrementNonce(),
+	// 	To:       &toAddress,
+	// 	Value:    value,
+	// 	Gas:      gasLimit,
+	// 	GasPrice: gasPrice,
+	// })
+
+	unsignedTx := types.NewTx(&types.DynamicFeeTx{
+		Nonce:     b.getAndIncrementNonce(),
+		To:        &toAddress,
+		Value:     value,
+		Gas:       gasLimit,
+		GasTipCap: gasPrice,
 	})
 
 	signedTx, err := types.SignTx(unsignedTx, b.signer, b.privateKey)
