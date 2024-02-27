@@ -3,6 +3,7 @@ package chain
 import (
 	"context"
 	"crypto/ecdsa"
+	"fmt"
 	"math/big"
 	"strings"
 	"sync/atomic"
@@ -14,6 +15,8 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	log "github.com/sirupsen/logrus"
 
+	"github.com/CoopHive/faucet.coophive.network/config"
+	"github.com/CoopHive/faucet.coophive.network/enums"
 	"github.com/CoopHive/faucet.coophive.network/internal/chain/token"
 )
 
@@ -84,7 +87,10 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 	// 	GasPrice: gasPrice,
 	// })
 
+	chainId := big.NewInt(config.Conf.GetInt64(enums.WEB3_CHAIN_ID))
+
 	unsignedTx := types.NewTx(&types.DynamicFeeTx{
+		ChainID:   chainId,
 		Nonce:     b.getAndIncrementNonce(),
 		To:        &toAddress,
 		Value:     value,
@@ -92,6 +98,8 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 		GasTipCap: gasPrice.Add(gasPrice, gasPrice),
 		GasFeeCap: gasPrice.Add(gasPrice, gasPrice),
 	})
+
+	fmt.Println("unsignedTx type", unsignedTx.Type())
 
 	signedTx, err := types.SignTx(unsignedTx, b.signer, b.privateKey)
 	if err != nil {
