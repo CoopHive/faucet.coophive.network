@@ -89,7 +89,8 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 		To:        &toAddress,
 		Value:     value,
 		Gas:       gasLimit,
-		GasTipCap: gasPrice,
+		GasTipCap: gasPrice.Add(gasPrice, gasPrice),
+		GasFeeCap: gasPrice.Add(gasPrice, gasPrice),
 	})
 
 	signedTx, err := types.SignTx(unsignedTx, b.signer, b.privateKey)
