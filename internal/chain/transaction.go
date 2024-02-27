@@ -3,6 +3,7 @@ package chain
 import (
 	"context"
 	"crypto/ecdsa"
+	"fmt"
 	"math/big"
 	"strings"
 	"sync/atomic"
@@ -14,6 +15,8 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	log "github.com/sirupsen/logrus"
 
+	"github.com/CoopHive/faucet.coophive.network/config"
+	"github.com/CoopHive/faucet.coophive.network/enums"
 	"github.com/CoopHive/faucet.coophive.network/internal/chain/token"
 )
 
@@ -54,7 +57,7 @@ func NewTxBuilder(provider string, privateKey *ecdsa.PrivateKey, chainID *big.In
 	txBuilder := &TxBuild{
 		client:       client,
 		privateKey:   privateKey,
-		signer:       types.NewEIP155Signer(chainID),
+		signer:       types.NewCancunSigner(chainID),
 		transactOpts: transactOpts,
 		fromAddress:  crypto.PubkeyToAddress(privateKey.PublicKey),
 		tokenAddress: tokenAddress,
@@ -70,22 +73,52 @@ func (b *TxBuild) Sender() common.Address {
 
 func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (common.Hash, error) {
 	gasLimit := uint64(21000)
+	networkName := config.Conf.GetString(enums.NETWORK)
+
+	switch networkName {
+
+	case enums.CALIBRATION:
+		gasLimit = uint64(1000000000)
+
+	case enums.SEPOLIA:
+		gasLimit = uint64(21000)
+	default:
+		gasLimit = uint64(21000)
+
+	}
+
 	gasPrice, err := b.client.SuggestGasPrice(ctx)
 	if err != nil {
 		return common.Hash{}, err
 	}
 
 	toAddress := common.HexToAddress(to)
-	unsignedTx := types.NewTx(&types.LegacyTx{
-		Nonce:    b.getAndIncrementNonce(),
-		To:       &toAddress,
-		Value:    value,
-		Gas:      gasLimit,
-		GasPrice: gasPrice,
+	// unsignedTx := types.NewTx(&types.LegacyTx{
+	// 	Nonce:    b.getAndIncrementNonce(),
+	// 	To:       &toAddress,
+	// 	Value:    value,
+	// 	Gas:      gasLimit,
+	// 	GasPrice: gasPrice,
+	// })
+
+	chainId := big.NewInt(config.Conf.GetInt64(enums.WEB3_CHAIN_ID))
+
+	unsignedTx := types.NewTx(&types.DynamicFeeTx{
+		ChainID:   chainId,
+		Nonce:     b.getAndIncrementNonce(),
+		To:        &toAddress,
+		Value:     value,
+		Gas:       gasLimit,
+		GasTipCap: gasPrice.Mul(gasPrice, big.NewInt(2)),
+		GasFeeCap: gasPrice.Mul(gasPrice, big.NewInt(2)),
 	})
+
+	fmt.Println("unsignedTx type", unsignedTx.Type())
+	log.Infof("unsignedTx %+v", unsignedTx)
 
 	signedTx, err := types.SignTx(unsignedTx, b.signer, b.privateKey)
 	if err != nil {
+		log.Errorf("unable to sign the tx %v", err)
 		return common.Hash{}, err
 	}
 

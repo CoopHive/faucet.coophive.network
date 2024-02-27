@@ -57,7 +57,7 @@ func (s *Server) handleClaim() http.HandlerFunc {
 		defer cancel()
 		txHash, err := s.Transfer(ctx, address, chain.EtherToWei(int64(s.cfg.Payout)))
 		if err != nil {
-			log.WithError(err).Error("Failed to send transaction")
+			log.WithError(err).Error("Failed to send ethers")
 			renderJSON(w, claimResponse{Message: err.Error()}, http.StatusInternalServerError)
 			return
 		}
