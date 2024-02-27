@@ -57,7 +57,7 @@ func NewTxBuilder(provider string, privateKey *ecdsa.PrivateKey, chainID *big.In
 	txBuilder := &TxBuild{
 		client:       client,
 		privateKey:   privateKey,
-		signer:       types.NewEIP155Signer(chainID),
+		signer:       types.NewCancunSigner(chainID),
 		transactOpts: transactOpts,
 		fromAddress:  crypto.PubkeyToAddress(privateKey.PublicKey),
 		tokenAddress: tokenAddress,
@@ -95,11 +95,12 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 		To:        &toAddress,
 		Value:     value,
 		Gas:       gasLimit,
-		GasTipCap: gasPrice.Add(gasPrice, gasPrice),
-		GasFeeCap: gasPrice.Add(gasPrice, gasPrice),
+		GasTipCap: gasPrice.Mul(gasPrice, big.NewInt(2)),
+		GasFeeCap: gasPrice.Mul(gasPrice, big.NewInt(2)),
 	})
 
 	fmt.Println("unsignedTx type", unsignedTx.Type())
+	log.Infof("unsignedTx %+v", unsignedTx)
 
 	signedTx, err := types.SignTx(unsignedTx, b.signer, b.privateKey)
 	if err != nil {
