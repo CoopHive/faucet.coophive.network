@@ -103,6 +103,7 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 
 	signedTx, err := types.SignTx(unsignedTx, b.signer, b.privateKey)
 	if err != nil {
+		log.Errorf("unable to sign the tx %v", err)
 		return common.Hash{}, err
 	}
 
