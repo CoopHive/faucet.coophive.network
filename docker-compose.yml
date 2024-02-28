@@ -1,5 +1,21 @@
 version: '3.8'
 services:
+  aurora:
+    environment:
+      NETWORK: sepolia
+    env_file:
+      - .env.aurora
+    image: ghcr.io/coophive/faucet:latest
+    restart: always
+    ports:
+      - '8080:${FAUCET_PORT:=8080}'
+    healthcheck:
+      test: [ 'CMD', 'curl', '--fail', 'http://localhost:8080/' ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
   sepolia:
     environment:
       NETWORK: sepolia
@@ -8,7 +24,7 @@ services:
     image: ghcr.io/coophive/faucet:latest
     restart: always
     ports:
-      - '8080:8080'
+      - '8081:${FAUCET_PORT:=8080}'
     healthcheck:
       test: [ 'CMD', 'curl', '--fail', 'http://localhost:8080/' ]
       interval: 10s
