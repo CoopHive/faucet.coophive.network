@@ -89,6 +89,7 @@ func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (comm
 
 	gasPrice, err := b.client.SuggestGasPrice(ctx)
 	if err != nil {
+		log.Errorf("suggest gas price %v", gasPrice)
 		return common.Hash{}, err
 	}
 
