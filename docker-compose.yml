@@ -30,7 +30,7 @@ services:
     ports:
       - '8081:${FAUCET_PORT}'
     healthcheck:
-      test: [ 'CMD', 'curl', '--fail', 'http://localhost:8080/${FAUCET_PORT}' ]
+      test: [ 'CMD', 'curl', '--fail', 'http://localhost:${FAUCET_PORT}' ]
       interval: 10s
       timeout: 5s
       retries: 3
