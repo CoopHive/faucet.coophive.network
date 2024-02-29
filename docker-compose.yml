@@ -10,7 +10,7 @@ services:
     image: ghcr.io/coophive/faucet:latest
     restart: always
     ports:
-      - "8080:8080"
+      - 8080:${FAUCET_PORT:-8080}
     healthcheck:
       test: [ 'CMD', 'curl', '--fail', 'http://localhost:8080' ]
       interval: 10s
@@ -28,7 +28,7 @@ services:
     image: ghcr.io/coophive/faucet:latest
     restart: always
     ports:
-      - "8081:8080"
+      - 8080:${FAUCET_PORT:-8080}
     healthcheck:
       test: [ 'CMD', 'curl', '--fail', 'http://localhost:8080' ]
       interval: 10s
