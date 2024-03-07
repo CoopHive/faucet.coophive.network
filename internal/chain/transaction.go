@@ -64,10 +64,6 @@ func NewTxBuilder(provider string, privateKey *ecdsa.PrivateKey, chainID *big.In
 	}
 	txBuilder.refreshNonce(context.Background())
 
-	gasLimit, gasPrice := txBuilder.calcGas()
-	transactOpts.GasPrice = gasPrice
-	transactOpts.GasLimit = gasLimit
-
 	return txBuilder, nil
 }
 
