@@ -64,6 +64,9 @@ func NewTxBuilder(provider string, privateKey *ecdsa.PrivateKey, chainID *big.In
 	}
 	txBuilder.refreshNonce(context.Background())
 
+	_, gasPrice := txBuilder.calcGas()
+	transactOpts.GasPrice = gasPrice
+
 	return txBuilder, nil
 }
 
@@ -72,26 +75,7 @@ func (b *TxBuild) Sender() common.Address {
 }
 
 func (b *TxBuild) Transfer(ctx context.Context, to string, value *big.Int) (common.Hash, error) {
-	gasLimit := uint64(21000)
-	networkName := config.Conf.GetString(enums.NETWORK)
-
-	switch networkName {
-
-	case enums.CALIBRATION:
-		gasLimit = uint64(1000000000)
-
-	case enums.SEPOLIA:
-		gasLimit = uint64(21000)
-	default:
-		gasLimit = uint64(21000)
-
-	}
-
-	gasPrice, err := b.client.SuggestGasPrice(ctx)
-	if err != nil {
-		log.Errorf("suggest gas price %v", gasPrice)
-		return common.Hash{}, err
-	}
+	gasLimit, gasPrice := b.calcGas()
 
 	toAddress := common.HexToAddress(to)
 	// unsignedTx := types.NewTx(&types.LegacyTx{
@@ -161,4 +145,28 @@ func (b *TxBuild) refreshNonce(ctx context.Context) {
 	}
 
 	b.nonce = nonce
+}
+
+func (b *TxBuild) calcGas() (gasLimit uint64, gasPrice *big.Int) {
+	gasLimit = uint64(21000)
+	networkName := config.Conf.GetString(enums.NETWORK)
+
+	switch networkName {
+
+	case enums.CALIBRATION:
+		gasLimit = uint64(1000000000)
+
+	case enums.SEPOLIA:
+		gasLimit = uint64(21000)
+	default:
+		gasLimit = uint64(21000)
+
+	}
+
+	gasPrice, err := b.client.SuggestGasPrice(context.Background())
+	if err != nil {
+		log.Errorf("suggest gas price %v", gasPrice)
+		gasPrice = big.NewInt(int64(gasLimit) - 1)
+	}
+	return gasLimit, gasPrice
 }
