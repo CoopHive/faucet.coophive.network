@@ -171,3 +171,10 @@ func (b *TxBuild) calcGas() (gasLimit uint64, gasPrice *big.Int) {
 	}
 	return gasLimit, gasPrice
 }
+
+func (b *TxBuild) refreshGas() {
+	gasLimit, gasPrice := b.calcGas()
+	transactOpts := b.transactOpts
+	transactOpts.GasPrice = gasPrice
+	transactOpts.GasLimit = gasLimit
+}
