@@ -134,6 +134,8 @@ func (b *TxBuild) getAndIncrementNonce() uint64 {
 	return atomic.AddUint64(&b.nonce, 1) - 1
 }
 
+// refreshNonce: refresh nonce
+// incase of calibration: refreshGas
 func (b *TxBuild) refreshNonce(ctx context.Context) {
 	nonce, err := b.client.PendingNonceAt(ctx, b.Sender())
 	if err != nil {
