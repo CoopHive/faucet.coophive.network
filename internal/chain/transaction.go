@@ -146,6 +146,15 @@ func (b *TxBuild) refreshNonce(ctx context.Context) {
 	}
 
 	b.nonce = nonce
+
+	networkName := config.Conf.GetString(enums.NETWORK)
+
+	switch networkName {
+
+	case enums.CALIBRATION:
+		log.Infof("refreshing gasLimits for %s", networkName)
+		b.refreshGas()
+	}
 }
 
 func (b *TxBuild) calcGas() (gasLimit uint64, gasPrice *big.Int) {
