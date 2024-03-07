@@ -58,14 +58,14 @@ func (s *Server) handleClaim() http.HandlerFunc {
 		txHash, err := s.Transfer(ctx, address, chain.EtherToWei(int64(s.cfg.Payout)))
 		if err != nil {
 			log.WithError(err).Error("Failed to send ethers")
-			renderJSON(w, claimResponse{Message: err.Error()}, http.StatusInternalServerError)
-			return
+			renderJSON(w, claimResponse{"Transfer ether failed due to " + err.Error()}, http.StatusInternalServerError)
+			// return
 		}
 
 		tokenTxHash, err := s.TransferTokens(ctx, address, chain.EtherToWei(int64(s.cfg.TokenPayout)))
 		if err != nil {
 			log.WithError(err).Error("Failed to send transaction")
-			renderJSON(w, claimResponse{Message: err.Error()}, http.StatusInternalServerError)
+			renderJSON(w, claimResponse{Message: "Transfer token failed due to " + err.Error()}, http.StatusInternalServerError)
 			return
 		}
 
